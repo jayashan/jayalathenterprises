@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)i-9q-hh8t^lakhh01-5d5*a%9aqjkl!$v^*2=o-_t*=+^3l%p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['jayalathenterprises.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['jayalath2021.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -91,15 +91,14 @@ WSGI_APPLICATION = 'jayalathenterprises.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'd2bgsvmt4hpf8f',
-        # 'USER':'wyqdfkdkpyyurj',
-        # 'PASSWORD':'7ee945fa31117b780c6a91e7e50ad6427beb84062797f5f274c8a328c1f148e7',
-        # 'HOST':'ec2-54-156-24-159.compute-1.amazonaws.com',
-        # 'PORT':'5432'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd5epd4a4cvmqs6',
+        'USER':'utfczklzllpojj',
+        'PASSWORD':'0e49f615ff9f52e5cf104deb059fb11ba5e13d93174853c1753e609d5768ceef',
+        'HOST':'ec2-54-156-24-159.compute-1.amazonaws.com',
+        'PORT':'5432'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -140,14 +139,14 @@ USE_TZ = True
 # STATIC_URL = '/static/'
 
 
-
-STATICFILES_DIRS=(
-    BASE_DIR / "static",
-)
-
 STATIC_URL = '/static/'
-django_heroku.settings(locals())
+
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+
+django_heroku.settings(locals())
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
