@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from .forms import BillForm,Bill_Details_Form
-from .models import Billinsert,Items,StudentData,Bills,Billing_Details
+from .forms import BillForm,Bill_Detail_Form
+from .models import Billinsert,Items,StudentData,Bill,Billing_Detail
 from django.db import connection
 from django.contrib import messages
 import json
@@ -21,19 +21,22 @@ def home(request):
 def add_invoice(request):
     title='Add Invoices'
     header='Add Invoices'
-    form=BillForm(request.POST or None)
-
-
-    if form.is_valid():
-        form.save()
+    # form=BillForm(request.POST or None)
+    #
+    # if form.is_valid():
+    #     form.save()
 
     context={
         "title":title,
         "header":header,
-        "form":form,
+
 
     }
     return render(request, 'addinvoice.html', context)
+
+
+
+
     # if request.method=="POST":
     #     if request.POST.get('Bill_number') and request.POST.get('Bill_date') and request.POST.get('name') and request.POST.get('sub_total') and request.POST.get('last_updated') and request.POST.get('paid') and request.POST.get('invoice_type') and request.POST.get('vehicle_number') and request.POST.get('product_name') and request.POST.get('price'):
     #         saverec=Billinsert()
@@ -158,35 +161,59 @@ def delete_data(request):
 @csrf_exempt
 def save_all(request):
     data=request.POST.get("data")
+
+    bill_number=request.POST.get("bill_number")
+    bill_date=request.POST.get("bill_date")
+    customer_name=request.POST.get("customer_name")
+    type=request.POST.get("type")
+    sub_total=request.POST.get("sub_total")
+
+
+    print(bill_number)
+    print(bill_date)
+    print(customer_name)
+    print(type)
+    print(sub_total)
+
+
+
+
     print(data)
+
     dict_data=json.loads(data)
 
+    bill = Bill()
+
+    bill.Bill_number = bill_number
+    bill.Bill_date = '2021-10-12'
+    bill.name = customer_name
+    bill.invoice_type = type
+    bill.sub_total = sub_total
+    bill.save()
+
     for data in dict_data:
-        bill_number=(data['bill_number'])
         vehicle_number= (data['vehicle_number'])
         product_name= (data['product_name'])
         price=(data['price'])
 
-
-        # bill=Bills()
-        # bill.vehicle_number=vehicle_number
-        # bill.product_name=product_name
-        # bill.price=price
-
-        bill=Billing_Details()
-
-        bill.vehicle_number=vehicle_number
-        bill.total=price
-        bill.Bill_number_id='1234'
-        bill.product_id_id='3'
-
-        bill.save()
+        bill_details = Billing_Detail()
+        bill_details.vehicle_number=vehicle_number
+        bill_details.total=price
+        bill_details.Bill_number_id=bill_number
+        bill_details.product_id_id='P92'
 
 
-
+        bill_details.save()
 
 
     return render(request, 'addinvoice.html')
+
+
+
+
+
+
+
 
 
 

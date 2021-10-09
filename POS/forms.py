@@ -1,5 +1,5 @@
 from django import forms
-from.models import Bill,Billing_Details
+from.models import Bill,Billing_Detail
 import datetime
 
 class BillForm(forms.ModelForm):
@@ -9,9 +9,9 @@ class BillForm(forms.ModelForm):
                 'sub_total','invoice_type'
 
         ]
-class Bill_Details_Form(forms.ModelForm):
+class Bill_Detail_Form(forms.ModelForm):
     class Meta:
-        model=Billing_Details
+        model=Billing_Detail
         fields=['vehicle_number'
 
         ]
