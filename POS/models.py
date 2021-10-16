@@ -19,8 +19,7 @@ class Bill(models.Model):
     )
     invoice_type=models.CharField(max_length=100,default='',blank=True,null=True,choices=invoice_type_choice)
 
-    def __str__(self):
-        return self.Bill_number
+
 
 class Product(models.Model):
     product_id=models.CharField(primary_key=True,max_length=50)
@@ -39,10 +38,6 @@ class Billing_Detail(models.Model):
     vehicle_number=models.CharField(max_length=50)
     qty=models.IntegerField(null=True,default=0)
     total=models.IntegerField()
-
-
-    def __str__(self):
-        return self.Bill_number
 
 
 class Customer(models.Model):

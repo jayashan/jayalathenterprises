@@ -33,6 +33,7 @@ urlpatterns = [
     path('delete_data',views.delete_data,name='delete_data'),
     path('update_all/',views.update_all,name='update_all'),
 
+    path('invoice_items/<int:my_id>/',views.invoice_items,name='invoice_items'),
 
 
 

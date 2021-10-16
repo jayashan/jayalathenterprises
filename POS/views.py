@@ -231,4 +231,18 @@ def list_of_invoices(request):
     return render(request,"view_invoices.html",context)
 
 
+def invoice_items(request,my_id):
+    pk=my_id
 
+    items=Bill.objects.get(Bill_number=my_id)
+
+    vehicles=Billing_Detail.objects.filter(Bill_number=my_id)
+
+
+    context={
+        "pk":pk,
+        "items":items,
+        "vehicles":vehicles,
+    }
+
+    return render(request,"invoiceitems.html",context)
