@@ -1,10 +1,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from .forms import BillForm,Bill_Detail_Form
-from .models import Billinsert,Items,StudentData,Bill,Billing_Detail
+from .forms import BillForm,Bill_Detail_Form,BillSearchForm
+from .models import Billinsert,Items,StudentData,Bill,Billing_Detail,Product
 from django.db import connection
 from django.contrib import messages
+from .filters import BillFilter
+
+# For Report Lab
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import landscape
+from reportlab.platypus import Image
+# End for report lab
+
+
+
 import json
 
 # Create your views here.
@@ -21,6 +32,7 @@ def home(request):
 def add_invoice(request):
     title='Add Invoices'
     header='Add Invoices'
+    products=Product.objects.all()
     # form=BillForm(request.POST or None)
     #
     # if form.is_valid():
@@ -29,6 +41,7 @@ def add_invoice(request):
     context={
         "title":title,
         "header":header,
+        "products":products,
 
 
     }
@@ -89,9 +102,6 @@ def add_bills(request):
         messages.info(request,'fail')
     return render(request, "Addbills.html",context)
 
-
-
-
 def homepage(request):
     title = "Jayalath Enterprises"
     header = "Jayalath Enterprises Home Page"
@@ -119,7 +129,6 @@ def InsertStudent(request):
         student_data={"error":True,"errorMessage":"Failed to add student"}
         return JsonResponse(student_data,safe=False)
 
-
 @csrf_exempt
 def update_all(request):
     data=request.POST.get("data")
@@ -142,8 +151,6 @@ def update_all(request):
         student_data = {"error": True, "errorMessage": "Failed to update"}
         return JsonResponse(student_data, safe=False)
 
-
-
 @csrf_exempt
 def delete_data(request):
     try:
@@ -160,71 +167,68 @@ def delete_data(request):
 
 @csrf_exempt
 def save_all(request):
-    data=request.POST.get("data")
-
-    bill_number=request.POST.get("bill_number")
-    bill_date=request.POST.get("bill_date")
-    customer_name=request.POST.get("customer_name")
-    type=request.POST.get("type")
-    sub_total=request.POST.get("sub_total")
-
-
-    print(bill_number)
-    print(bill_date)
-    print(customer_name)
-    print(type)
-    print(sub_total)
+            data = request.POST.get("data")
+            bill_number=request.POST.get("bill_number")
+            bill_date=request.POST.get("bill_date")
+            customer_name=request.POST.get("customer_name")
+            type=request.POST.get("type")
+            sub_total=request.POST.get("sub_total")
 
 
+            print(bill_number)
+            print(bill_date)
+            print(customer_name)
+            print(type)
+            print(sub_total)
+
+            print(data)
+
+            dict_data=json.loads(data)
+
+            bill = Bill()
 
 
-    print(data)
+            bill.Bill_number = bill_number
+            bill.Bill_date = bill_date
+            bill.name = customer_name
+            bill.invoice_type = type
+            bill.sub_total = sub_total
 
-    dict_data=json.loads(data)
+            bill.save()
 
-    bill = Bill()
+            try:
 
-    bill.Bill_number = bill_number
-    bill.Bill_date = '2021-10-12'
-    bill.name = customer_name
-    bill.invoice_type = type
-    bill.sub_total = sub_total
-    bill.save()
+                for data in dict_data:
+                    vehicle_number= (data['vehicle_number'])
+                    product_name= (data['product_name'])
+                    price=(data['price'])
 
-    for data in dict_data:
-        vehicle_number= (data['vehicle_number'])
-        product_name= (data['product_name'])
-        price=(data['price'])
-
-        bill_details = Billing_Detail()
-        bill_details.vehicle_number=vehicle_number
-        bill_details.total=price
-        bill_details.Bill_number_id=bill_number
-        bill_details.product_id_id='P92'
-
-
-        bill_details.save()
+                    bill_details = Billing_Detail()
+                    bill_details.vehicle_number=vehicle_number
+                    bill_details.total=price
+                    bill_details.Bill_number_id=bill_number
+                    bill_details.product_id_id=product_name
+                    bill_details.save()
+            except:
+                return render(request, 'addinvoice.html')
 
 
-    return render(request, 'addinvoice.html')
+def list_of_invoices(request):
+    title=''
+    queryset=Bill.objects.all()
+    form=BillSearchForm(request.GET or None)
 
+    myFilter=BillFilter(request.GET,queryset=queryset)
+    queryset=myFilter.qs
 
+    context={
+        "title":title,
+        "queryset":queryset,
+        "form": form,
+        "myFilter":myFilter,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+    return render(request,"view_invoices.html",context)
 
 
 

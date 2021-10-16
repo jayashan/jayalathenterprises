@@ -20,7 +20,7 @@ class Bill(models.Model):
     invoice_type=models.CharField(max_length=100,default='',blank=True,null=True,choices=invoice_type_choice)
 
     def __str__(self):
-        return str(self.Bill_number)
+        return self.Bill_number
 
 class Product(models.Model):
     product_id=models.CharField(primary_key=True,max_length=50)
@@ -40,8 +40,10 @@ class Billing_Detail(models.Model):
     qty=models.IntegerField(null=True,default=0)
     total=models.IntegerField()
 
+
     def __str__(self):
-        return str(self.Bill_number)
+        return self.Bill_number
+
 
 class Customer(models.Model):
     company_id=models.IntegerField(null=False)
@@ -102,4 +104,3 @@ class Bills(models.Model):
     price=models.IntegerField()
     created_at = models.DateField(auto_now_add=True)
     objects = models.Manager()
-

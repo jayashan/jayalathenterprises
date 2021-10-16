@@ -17,11 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from.import views
 
+
+
 urlpatterns = [
     path("",views.home,name='home'),
     path("add_bills/",views.add_bills,name='add_bills'),
     path('add_invoice/',views.add_invoice,name='add_invoice'),
     path('save_all/',views.save_all,name='save_all'),
+
+    path('list_invoices/',views.list_of_invoices,name='list_invoices'),
+
 
     path('homepage/',views.homepage,name='homepage'),
     path('insert_student/',views.InsertStudent,name='insert'),
