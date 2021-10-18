@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, request, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from .forms import BillForm,Bill_Detail_Form,BillSearchForm
@@ -6,6 +6,7 @@ from .models import Billinsert,Items,StudentData,Bill,Billing_Detail,Product
 from django.db import connection
 from django.contrib import messages
 from .filters import BillFilter
+from django.views.generic import ListView
 
 # For Report Lab
 from reportlab.pdfgen import canvas
@@ -13,6 +14,12 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.pagesizes import landscape
 from reportlab.platypus import Image
 # End for report lab
+
+#------XHTML2PDF----------.
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+#--------END-------------.
 
 
 
@@ -246,3 +253,65 @@ def invoice_items(request,my_id):
     }
 
     return render(request,"invoiceitems.html",context)
+
+
+class CustomerListView(ListView):
+    model = Bill
+    template_name = 'main.html'
+
+def customer_render_pdf_view(request,*args,**kwargs):
+    pk=kwargs.get('pk')
+    bill=get_object_or_404(Bill,pk=pk)
+    items=Billing_Detail.objects.filter(Bill_number=pk)
+
+
+    template_path = 'user_printer.html'
+    context = {
+        'customer': bill,
+        'vehicles':items
+    }
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+
+    # if we want to download run this code
+    # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    # or if you just want to display in the browswe run this:
+    response['Content-Disposition'] = 'filename="report.pdf"'
+
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+def render_pdf_view(request):
+    template_path = 'user_printer.html'
+    context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+
+    #if we want to download run this code
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    #or if you just want to display in the browswe run this:
+    response['Content-Disposition'] = 'filename="report.pdf"'
+
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+

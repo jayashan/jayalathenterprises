@@ -33,7 +33,14 @@ urlpatterns = [
     path('delete_data',views.delete_data,name='delete_data'),
     path('update_all/',views.update_all,name='update_all'),
 
-    path('invoice_items/<int:my_id>/',views.invoice_items,name='invoice_items'),
+    path('invoice_items/<pk>/',views.invoice_items,name='invoice_items'),
+
+
+
+    path('print/',views.render_pdf_view,name='print-pdf-testing'),
+    path('print2/',views.CustomerListView.as_view(),name='print-list-view'),
+
+    path('pdf/<pk>/',views.customer_render_pdf_view,name='print-customer-view'),
 
 
 
