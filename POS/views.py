@@ -7,6 +7,8 @@ from django.db import connection
 from django.contrib import messages
 from .filters import BillFilter
 from django.views.generic import ListView
+import random
+
 
 # For Report Lab
 from reportlab.pdfgen import canvas
@@ -40,6 +42,9 @@ def add_invoice(request):
     title='Add Invoices'
     header='Add Invoices'
     products=Product.objects.all()
+
+    billnumber=random.randint(1, 10000000000)*2
+
     # form=BillForm(request.POST or None)
     #
     # if form.is_valid():
@@ -49,6 +54,7 @@ def add_invoice(request):
         "title":title,
         "header":header,
         "products":products,
+        "billnumber":billnumber,
 
 
     }

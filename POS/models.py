@@ -3,12 +3,12 @@ from django.db import models
 # Create your models here.
 
 class Bill(models.Model):
-    Bill_number=models.IntegerField(primary_key=True )
+    Bill_number=models.BigIntegerField(primary_key=True )
     Bill_date=models.DateField(auto_now_add=False,auto_now=False,blank=True,null=True)
     name=models.CharField('Customer Name',max_length=120,default='',blank=True,null=True)
 
-    sub_total=models.IntegerField()
-    balance=models.IntegerField(default='0', blank=True,null=True)
+    sub_total=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    balance=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
     last_updated=models.DateField(auto_now_add=False,auto_now=True,blank=True)
     paid=models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True,null=False)
@@ -37,7 +37,7 @@ class Billing_Detail(models.Model):
     product_id=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
     vehicle_number=models.CharField(max_length=50)
     qty=models.IntegerField(null=True,default=0)
-    total=models.IntegerField()
+    total=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
 
 class Customer(models.Model):

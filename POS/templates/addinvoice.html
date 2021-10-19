@@ -27,72 +27,76 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
+
   </head>
   <body>
     {% include 'navibar.html' %}
     <div class="container">
       <div class="myform">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label>Bill Number</label>
-            <input class="form-control" type="text" id="bill_number" name="bill_number">
+        <form id="BillForm">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Bill Number</label>
+              <input class="form-control" type="text" id="bill_number" name="bill_number" value="000{{billnumber}}" readonly>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Date</label>
+              <input type="text" id="datepicker" class="form-control" placeholder="YYYY-MM-DD">
+            </div>
+            <div class="form-group">
+              <label>Customer Name</label>
+              <input class="form-control" type="text" id="customer_name" name="customer_name" onkeyup="this.value=this.value.toUpperCase();" onkeypress="return /[a-z]/i.test(event.key)" placeholder="Customer Name">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Invoice Type</label>
+              <select class="form-control" id="type">
+                <option>CASH</option>
+                <option>PAID</option>
+                <option>CREDIT</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group col-md-6">
-            <label>Date</label>
-            <input type="text" id="datepicker" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Customer Name</label>
-            <input class="form-control" type="text" id="customer_name" name="customer_name">
-          </div>
-          <div class="form-group col-md-2">
-            <label>Invoice Type</label>
-            <select class="form-control" id="type">
-              <option>CASH</option>
-              <option>PAID</option>
-              <option>CREDIT</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <h2>Invoice Details</h2>
-          </div>
-        </div>
-        <div class="shadow-none p-3 mb-5 bg-light rounded">
           <div class="row">
             <div class="col-sm-6">
-              <div class="panel panel-primary">
-                <div class="panel-body">
-                  <div class="form-group">
-                    <label>Vehicle Number</label>
-                    <input type="text" class="form-control" id="vehicle_number" />
+              <h2>Invoice Details</h2>
+            </div>
+          </div>
+          <div class="shadow-none p-3 mb-5 bg-light rounded">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="panel panel-primary">
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <label id="lbl_vehicle_number">Vehicle Number</label>
+                      <input type="text" class="form-control" id="vehicle_number" name="vehicle_number" onkeyup="this.value=this.value.toUpperCase();" placeholder="EX: GX-3612">
+                      <div class="error" id="vehicle_number_error"></div>
+                    </div>
+                    <div class="form-group">
+                      <label>Product Name</label>
+                      <select class="form-control" id="product_name">
+                        <option disabled="true" selected>-----------</option>
+                        {% for products in products %}
+                          <option>{{products.product_id}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Price</label>
+                      <input type="url" class="form-control" id="price" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" placeholder="0:00"/>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label>Product Name</label>
-                    <select class="form-control" id="product_name">
-                      <option disabled="true" selected>-----------</option>
-                      {% for products in products %}
-                        <option>{{products.product_id}}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Price</label>
-                    <input type="url" class="form-control" id="price" />
-                  </div>
-                </div>
-                <div class="panel-footer">
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <button type="button" id="updateButton" class="btn btn-primary" onclick="productUpdate();">Add</button>
+                  <div class="panel-footer">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <button type="button" id="updateButton" class="btn btn-primary" onclick="productUpdate();">Add</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
         <div class="row">
           <div class="col-sm-6">
             <table id="productTable" class="table table-bordered table-condensed table-striped">
@@ -120,8 +124,11 @@
             <div class="col-xs-12">
                 <button class="btn btn-block btn-success" type="submit" value="Save" id="save_all_btn">SAVE ALL</button>
             </div>
+
         </div>
       </div>
+      <div class="alert alert-success" id="upt_success" style="display:none"></div>
+      <div class="alert alert-danger" id="upt_error" style="display:none"></div>
     </div>
     <script>
 
@@ -148,6 +155,25 @@
             if ($("#updateButton").text() == "Update") {
               productUpdateInTable(activeId);
             }
+            else if($("#vehicle_number").val()==''){
+              alert("Vehicle Number Must Be Filled Out");
+              $("#vehicle_number").focus();
+              return false;
+
+            }
+            else if($("#product_name").val()==null){
+              alert("Product Name Must Be Filled Out");
+              $("#product_name").focus();
+              return false;
+
+            }
+            else if($("#price").val()==''){
+              alert("Price Must Be Filled Out");
+              $("#price").focus();
+              return false;
+
+            }
+
             else {
               productAddToTable();
 
@@ -168,7 +194,6 @@
             if ($("#productTable tbody").length == 0) {
               $("#productTable").append("<tbody id='productTableBody'></tbody>");
             }
-
             // Append product to table
             $("#productTable tbody").append(
               productBuildTableRow(nextId));
@@ -248,13 +273,13 @@
           function getTotal() {
 
             var table = document.getElementById("productTableBody");
-            let sumVal = 0;
+            let sumVal = 0.00;
 
             for(var i = 0; i < table.rows.length; i++) {
-                sumVal += isNaN(table.rows[i].cells[3].innerHTML) ? 0 : parseInt(table.rows[i].cells[3].innerHTML);
+                sumVal += isNaN(table.rows[i].cells[3].innerHTML) ? 0 : parseFloat(table.rows[i].cells[3].innerHTML);
             }
 
-            document.getElementById("val").innerHTML = sumVal;
+            document.getElementById("val").innerHTML = sumVal.toFixed(2);
           }
 
 
@@ -262,13 +287,30 @@
 
           $("#save_all_btn").click(function(){
 
-            console.log('save all');
+            var table = document.getElementById("productTableBody");
             var bill_number=$("#bill_number").val();
             var date=$("#datepicker").val();
             var customer_name=$("#customer_name").val();
             var subtotal=$("#val").text();
             var type=$("#type").val();
 
+            if(table.rows.length==0){
+              alert("table is empty");
+<!--              document.getElementById("save_all_btn").disabled = true;-->
+              return false;
+            }
+            if(date==''){
+              alert("Bill Date is Empty");
+              date.focus();
+              $("#datepicker").focus();
+              return false;
+            }
+            if(customer_name==''){
+              alert("Customer Name Must Be Filled Out");
+              $("#customer_name").focus();
+              return false;
+            }
+            console.log('save all');
 
             console.log(bill_number);
             console.log(date);
@@ -309,11 +351,19 @@
                   }
                 })
                 .done(function(response){
-                  location.reload();
+                      $("upt_error").hide();
+                      $("#upt_success").html("PROCESSING");
+                      $("#upt_success").show();
+
+                      alert("YOUR BILL IS SUCCESSFULLY SAVED ");
+                      location.reload();
+
                 })
                 .fail(function(){
-                })
-                .always(function(){
+                  $("upt_success").hide();
+                  $("upt_error").text("Something went wrong");
+                  $("upt_error").show();
+                  location.reload();
                 })
           });
 
