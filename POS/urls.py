@@ -45,6 +45,11 @@ urlpatterns = [
 
 
 
+    path('settings_home/',views.settings_home,name='settings_home'),
+
+
+
+
 
 
 ]

@@ -321,3 +321,11 @@ def render_pdf_view(request):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+
+def settings_home(request):
+    title='settings'
+    context={
+        'title':title
+
+    }
+    return render(request,'settings_pages/index.html',context)
