@@ -50,7 +50,6 @@
                      <a class="pt-2 d-inline-block" href="#" data-abc="true">JAYALATH ENTERPRISES</a>
                      <div class="float-right">
                          <h3 class="mb-0">Invoice #{{customer.Bill_number}}</h3>
-                         Date: {{customer.Bill_date}}
                      </div>
             </div>
         </div>
@@ -59,6 +58,7 @@
         <!--------BODY----------->
         <h5 class="mb-3">To:</h5>
         <h3 class="text-dark mb-1">{{customer.name}}</h3>
+        <h3>Date: {{customer.Bill_date}}</h3>
 
         <table border="1" WIDTH="80%" align="center" cellpadding="3" cellspacing="0">
                              <thead>
@@ -66,9 +66,9 @@
                                      <th class="center">#</th>
                                      <th>Vehicle Number</th>
                                      <th>Product Name</th>
-        <!--                             <th class="right">Price</th>-->
-        <!--                             <th class="center">Qty</th>-->
-                                     <th class="right">Total</th>
+<!--                                     <th class="right">Price</th>-->
+                                     <th class="center">Qty (Ltr)</th>
+                                     <th class="right">Total (Rs.)</th>
                                  </tr>
                              </thead>
                              <tbody>
@@ -77,6 +77,7 @@
                                      <td align="center" valign="middle">{{forloop.counter}}</td>
                                      <td align="center" valign="middle">{{vehicles.vehicle_number}}</td>
                                      <td align="center" valign="middle">{{vehicles.product_id}}</td>
+                                     <td align="center" valign="middle">{{vehicles.qty}} Ltr</td>
         <!--                             <td class="right">$1500</td>-->
         <!--                             <td class="center">10</td>-->
                                      <td align="center" valign="middle">{{vehicles.total}}</td>

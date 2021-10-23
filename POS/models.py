@@ -24,7 +24,7 @@ class Bill(models.Model):
 class Product(models.Model):
     product_id=models.CharField(primary_key=True,max_length=50)
     product_name=models.CharField(max_length=100)
-    price=models.IntegerField('Unit Price',default=0,blank=True,null=True)
+    price=models.DecimalField('Unit Price',max_digits=10,decimal_places=2,default=0.00)
     order_level=models.IntegerField('Pre Order Level', default=0,blank=True,null=True)
 
     def __str__(self):
@@ -36,7 +36,7 @@ class Billing_Detail(models.Model):
     Bill_number=models.ForeignKey(Bill,null=True,on_delete=models.SET_NULL)
     product_id=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
     vehicle_number=models.CharField(max_length=50)
-    qty=models.IntegerField(null=True,default=0)
+    qty=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
     total=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
 

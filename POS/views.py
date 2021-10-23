@@ -43,6 +43,8 @@ def add_invoice(request):
     header='Add Invoices'
     products=Product.objects.all()
 
+
+
     billnumber=random.randint(1, 10000000000)*2
 
     # form=BillForm(request.POST or None)
@@ -214,13 +216,16 @@ def save_all(request):
                 for data in dict_data:
                     vehicle_number= (data['vehicle_number'])
                     product_name= (data['product_name'])
+                    qty=(data['no_of_ltr'])
                     price=(data['price'])
 
                     bill_details = Billing_Detail()
                     bill_details.vehicle_number=vehicle_number
                     bill_details.total=price
+                    bill_details.qty=qty
                     bill_details.Bill_number_id=bill_number
                     bill_details.product_id_id=product_name
+
                     bill_details.save()
             except:
                 return render(request, 'addinvoice.html')

@@ -19,6 +19,8 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
 
+
+
   </head>
   <body>
     {% include 'navibar.html' %}
@@ -64,16 +66,26 @@
                     </div>
                     <div class="form-group">
                       <label>Product Name</label>
-                      <select class="form-control" id="product_name">
-                        <option disabled="true" selected>-----------</option>
-                        {% for products in products %}
-                          <option>{{products.product_id}}</option>
-                        {% endfor %}
-                      </select>
+                      <div class="input-group mb-3">
+                        <label class="input-group-text" for="product_name">SELECT</label>
+                        <select class="form-select" id="product_name" onchange="">
+                          <option disabled="true" selected>-----------</option>
+                          {% for products in products %}
+                            <option data-unit_price={{products.price}}>{{products.product_id}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <label class="font-weight-lighter">Unit Price Rs. </label></label><label  class="font-weight-lighter" id="lbl_unit_price">0.00</label>
                     </div>
                     <div class="form-group">
                       <label>Price</label>
-                      <input type="url" class="form-control" id="price" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" placeholder="0:00"/>
+                      <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="price" pattern="[0-9]" placeholder="0:00" oninput="get_no_of_ltr()"/>
+                        <div class="invalid-feedback" id="error">
+                              Please Enter A Valid Price
+                        </div>
+                      </div>
+                      <label class="font-weight-lighter">No Of Ltr : </label><label class="font-weight-lighter" id="no_of_ltr"></label>
                     </div>
                   </div>
                   <div class="panel-footer">
@@ -89,14 +101,16 @@
           </div>
         </form>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="">
             <table id="productTable" class="table table-bordered table-condensed table-striped">
               <thead>
                 <tr>
                   <th>Edit</th>
                   <th>Vehicle Number</th>
                   <th>Product Name</th>
-                  <th>Price</th>
+                  <th>Unit Price (Rs.)</th>
+                  <th>Qty (Ltr)</th>
+                  <th>Price (Rs.)</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -125,6 +139,22 @@
           // ID of Product currently editing
           var activeId = 0;
 
+
+          var priceMaterial = document.getElementById("unit_price");
+
+          document.getElementById("product_name").addEventListener('change', function() {
+            let unit_price=0.00;
+            let txt_price=0.00;
+
+            document.getElementById("price").value=txt_price;
+            document.getElementById("no_of_ltr").innerHTML="";
+
+            var selected = this.options[this.selectedIndex];
+            unit_price = selected.dataset.unit_price;
+<!--            priceMaterial.innerText = price.toFixed(2);-->
+            document.getElementById("lbl_unit_price").innerHTML = unit_price;
+          });
+
           function productDisplay(ctl) {
             var row = $(ctl).parents("tr");
             var cols = row.children("td");
@@ -132,9 +162,12 @@
             activeId = $($(cols[0]).children("button")[0]).data("id");
             $("#vehicle_number").val($(cols[1]).text());
             $("#product_name").val($(cols[2]).text());
-            $("#price").val($(cols[3]).text());
+            $("#lbl_unit_price").text($(cols[3]).text());
+            $("#no_of_ltr").text($(cols[4]).text());
+            $("#price").val($(cols[5]).text());
             // Change Update Button Text
             $("#updateButton").text("Update");
+
           }
 
 
@@ -161,19 +194,19 @@
               return false;
 
             }
-
-            else {
-              productAddToTable();
+            else if($("#price").val()==0){
+              alert("Enter a valid Price");
+              $("#price").focus();
+              return false;
 
             }
 
-            // Clear form fields
-            formClear();
-
-            //get total amount
-            getTotal();
-            // Focus to product name field
-            $("#vehicle_number").focus();
+            else {
+              productAddToTable();
+               //get total amount
+              getTotal();
+              formClear();
+            }
           }
 
           // Add product to <table>
@@ -197,45 +230,75 @@
             var row = $("#productTable button[data-id='" + id + "']")
                       .parents("tr")[0];
 
-            // Add changed product to table
-            $(row).after(productBuildTableRow(id));
-            // Remove original product
-            $(row).remove();
+            if($("#vehicle_number").val()==''){
+              alert("Vehicle Number Must Be Filled Out");
+              $("#vehicle_number").focus();
+              //return false;
 
-            // Clear form fields
-            formClear();
+            }
+            else if($("#product_name").val()==null){
+              alert("Product Name Must Be Filled Out");
+              $("#product_name").focus();
+              return false;
 
-            // Change Update Button Text
-            $("#updateButton").text("Add");
-            getTotal();
+            }
+            else if($("#price").val()==''){
+              alert("Price Must Be Filled Out");
+              $("#price").focus();
+              return false;
+
+            }
+            else if($("#price").val()==0){
+              alert("Enter a valid Price");
+              $("#price").focus();
+              //return false;
+
+            }
+            else{
+
+              // Add changed product to table
+              $(row).after(productBuildTableRow(id));
+              // Remove original product
+              $(row).remove();
+
+              // Clear form fields
+              formClear();
+
+              // Change Update Button Text
+              $("#updateButton").text("Add");
+              getTotal();
+            }
           }
 
           // Build a <table> row of Product data
           function productBuildTableRow(id) {
-            var ret =
-            "<tr>" +
-              "<td>" +
-                "<button type='button' " +
-                        "onclick='productDisplay(this);' " +
-                        "class='btn btn-info' " +
-                        "data-id='" + id + "'>" +
-                        "Edit"+
-                "</button>" +
-              "</td>" +
-              "<td>" + $("#vehicle_number").val() + "</td>" +
-              "<td>" + $("#product_name").val() + "</td>" +
-              "<td>" + $("#price").val() + "</td>" +
-              "<td>" +
-                "<button type='button' " +
-                        "onclick='productDelete(this);' " +
-                        "class='btn btn-danger' " +
-                        "data-id='" + id + "'>" +
-                        "Delete" +
-                "</button>" +
-              "</td>" +
-            "</tr>"
+              var ret =
+              "<tr>" +
+                "<td>" +
+                  "<button type='button' " +
+                          "onclick='productDisplay(this);' " +
+                          "class='btn btn-info' " +
+                          "data-id='" + id + "'>" +
+                          "Edit"+
+                  "</button>" +
+                "</td>" +
+                "<td>" + $("#vehicle_number").val() + "</td>" +
+                "<td>" + $("#product_name").val() + "</td>" +
+                "<td>" + $("#lbl_unit_price").text() + "</td>" +
+                "<td>" + $("#no_of_ltr").text() + "</td>" +
+                "<td>" + $("#price").val() + "</td>" +
+                "<td>" +
+                  "<button type='button' " +
+                          "onclick='productDelete(this);' " +
+                          "class='btn btn-danger' " +
+                          "data-id='" + id + "'>" +
+                          "Delete" +
+                  "</button>" +
+                "</td>" +
+              "</tr>"
 
-            return ret;
+              return ret;
+
           }
 
           // Delete product from <table>
@@ -254,6 +317,9 @@
             $("#vehicle_number").val("");
             $("#product_name").val("");
             $("#price").val("");
+            document.getElementById("no_of_ltr").innerHTML="0";
+            document.getElementById("lbl_unit_price").innerHTML="0.00";
+
           }
 
 
@@ -264,10 +330,31 @@
             let sumVal = 0.00;
 
             for(var i = 0; i < table.rows.length; i++) {
-                sumVal += isNaN(table.rows[i].cells[3].innerHTML) ? 0 : parseFloat(table.rows[i].cells[3].innerHTML);
+                sumVal += isNaN(table.rows[i].cells[5].innerHTML) ? 0 : parseFloat(table.rows[i].cells[5].innerHTML);
             }
 
             document.getElementById("val").innerHTML = sumVal.toFixed(2);
+          }
+
+
+          function get_no_of_ltr(){
+                var unit_price=parseFloat(document.getElementById("lbl_unit_price").innerHTML);
+                var price=parseFloat(document.getElementById("price").value);
+
+                if((document.getElementById("price").value).length==0 || price<=0)
+                {
+                    $("#error").show();
+                }
+                else{
+                  $("#error").hide();
+                  ltr=price/unit_price;
+                  document.getElementById("no_of_ltr").innerHTML = ltr.toFixed(2);
+
+                  console.log(unit_price);
+                  console.log(price);
+                  console.log(ltr);
+                  console.log(no_of_ltr);
+                }
           }
 
 
@@ -312,14 +399,16 @@
             $("tbody tr").each(function(){
                 var vehicle_number=$(this).children().eq(1).text()
                 var product_name=$(this).children().eq(2).text()
-                var price=$(this).children().eq(3).text()
+                var no_of_ltr=$(this).children().eq(4).text()
+                var price=$(this).children().eq(5).text()
 
                 console.log(vehicle_number);
                 console.log(product_name);
+                console.log(no_of_ltr);
                 console.log(price);
 
 
-                var single_data={"vehicle_number":vehicle_number,"product_name":product_name,"price":price};
+                var single_data={"vehicle_number":vehicle_number,"product_name":product_name,"no_of_ltr":no_of_ltr,"price":price};
                 json_data.push(single_data);
             });
                 console.log(json_data);
