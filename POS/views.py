@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, request, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from .forms import BillForm,Bill_Detail_Form,BillSearchForm,Add_Fuels_Form
+from .forms import BillForm,Bill_Detail_Form,BillSearchForm,Add_Fuels_Form,Update_Fuels_Form
 from .models import Billinsert,Items,StudentData,Bill,Billing_Detail,Product
 from django.db import connection
 from django.contrib import messages
@@ -353,3 +353,29 @@ def Add_Fuels(request):
     }
     return render(request,"settings_pages/Add_Fuels.html",context)
 
+
+def Update_Fuels(request,pk):
+    queryset=Product.objects.get(product_id=pk)
+
+    form=Update_Fuels_Form(instance=queryset)
+
+    if request.method=='POST':
+        form=Update_Fuels_Form(request.POST,instance=queryset)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/Add_Fuels')
+
+    context={
+        'form':form
+    }
+    return render(request,"settings_pages/Add_Fuels.html",context)
+
+
+def Delete_Fuels(request,pk):
+    queryset=Product.objects.get(product_id=pk)
+    if request.method=='POST':
+        queryset.delete()
+        return redirect('/Add_Fuels')
+
+    return render(request,'settings_pages/Delete_Fuels.html')

@@ -32,17 +32,17 @@
                     <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Price</th>
-                    <th>Product ID</th>
+                    <th>Pre Order Level</th>
                 </tr>
             </thead>
             {% for instances in queryset %}
             <tr>
-                    <td><a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">Edit</a></td>
+                    <td><a class="btn btn-primary" href="{% url 'Update_Fuels' instances.product_id %}" role="button">Edit</a></td>
                     <td>{{instances.product_id}}</td>
                     <td>{{instances.product_name}}</td>
                     <td>{{instances.price}}</td>
                     <td>{{instances.order_level}}</td>
-                    <td><a href="#" class="btn btn-danger" role="button" data-bs-toggle="button">Delete</a></td>
+                    <td><a class="btn btn-danger" href="{% url 'Delete_Fuels' instances.product_id %}" role="button">Delete</a></td>
             </tr>
             {% endfor %}
         </table>

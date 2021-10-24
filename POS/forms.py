@@ -27,3 +27,9 @@ class Add_Fuels_Form(forms.ModelForm):
     class Meta:
         model=Product
         fields=['product_id','product_name','price','order_level']
+
+
+class Update_Fuels_Form(forms.ModelForm):
+    class Meta:
+        model=Product
+        fields = ['product_id', 'product_name', 'price', 'order_level']
