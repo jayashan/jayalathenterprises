@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, request, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from .forms import BillForm,Bill_Detail_Form,BillSearchForm
+from .forms import BillForm,Bill_Detail_Form,BillSearchForm,Add_Fuels_Form
 from .models import Billinsert,Items,StudentData,Bill,Billing_Detail,Product
 from django.db import connection
 from django.contrib import messages
@@ -334,3 +334,22 @@ def settings_home(request):
 
     }
     return render(request,'settings_pages/index.html',context)
+
+
+def Add_Fuels(request):
+    title = 'Add_Fuels'
+    queryset= Product.objects.all()
+    form=Add_Fuels_Form(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request,'Saved..!')
+        return redirect('/Add_Fuels')
+
+    context = {
+        'title': title,
+        'queryset':queryset,
+        "form":form
+    }
+    return render(request,"settings_pages/Add_Fuels.html",context)
+

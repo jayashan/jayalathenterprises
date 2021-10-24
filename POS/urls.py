@@ -46,7 +46,8 @@ urlpatterns = [
 
 
     path('settings_home/',views.settings_home,name='settings_home'),
-
+    path('Add_Fuels/',views.Add_Fuels,name='Add_Fuels'),
+    path('Update_Fuels/<str:pk>/',views.Add_Fuels,name='Update_Fuels'),
 
 
 
