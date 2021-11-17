@@ -1,9 +1,123 @@
 from django.db import models
 
 # Create your models here.
+class Product(models.Model):
+    product_id=models.CharField(primary_key=True,max_length=50)
+    product_name=models.CharField(max_length=100)
+    price=models.DecimalField('Unit Price',max_digits=10,decimal_places=2,default=0.00)
+    brought_price=models.DecimalField('Brought Price',max_digits=10,decimal_places=2,default=0.00)
+    discount=models.DecimalField(max_digits=10,decimal_places=2,null=False,default=0.00)
+
+    CATEGORY_TYPE_CHOICES=[
+        ('GOODS','Goods'),
+        ('FUEL','Fuel'),
+    ]
+
+    category_type=models.CharField(max_length=50,default='',blank=False,null=False,choices=CATEGORY_TYPE_CHOICES)
+
+    def __str__(self):
+        return self.product_name
+
+
+class Supplier(models.Model):
+    supplier_id=models.BigAutoField(primary_key=True)
+    supplier_name=models.CharField(max_length=50, null=False,blank=False)
+    supplier_address1=models.CharField(max_length=50, null=True,blank=True)
+    supplier_address2 = models.CharField(max_length=50, null=True, blank=True)
+    city=models.CharField(max_length=50, null=True, blank=True)
+
+    PHONE_NUMBER_CHOICES=[
+        ('LAND1','LAND1'),
+        ('LAND2', 'LAND2'),
+        ('MOBILE','MOBILE')
+    ]
+
+    phone_number=models.CharField(max_length=50,default='',blank=True,null=True,choices=PHONE_NUMBER_CHOICES)
+
+
+class Stock(models.Model):
+    stock_id=models.BigAutoField(primary_key=True)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    qty=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+
+    TYPE_CHOICES=[
+        ('FUEL','FUEL'),
+        ('GOODS','GOODS')
+    ]
+    type=models.CharField(max_length=50,blank=False,null=False,choices=TYPE_CHOICES)
+    company_name=models.CharField(max_length=100,blank=False,null=False)
+    created_by=models.CharField(max_length=100,blank=False,null=False)
+    pre_order_level=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    update_date=models.DateTimeField(auto_now_add=True,null=False)
+
+
+class Order(models.Model):
+    order_no=models.CharField(primary_key=True,null=False,blank=False,max_length=50)
+    date_of_order=models.DateField(auto_now_add=False,auto_now=False,blank=False)
+    made_by=models.CharField(max_length=100,null=False,blank=False)
+    created_on=models.DateTimeField(auto_now=True,null=False)
+    ORDER_OPTIONS_CHOICES=[
+        ('TP','Telephone'),
+        ('Post','POST'),
+        ('fax','Fax'),
+
+    ]
+    order_options=models.CharField(max_length=50,null=False,choices=ORDER_OPTIONS_CHOICES)
+    Is_pending=models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.order_no)
+
+class Order_Item(models.Model):
+    order_item_no=models.BigAutoField(primary_key=True)
+    order_no=models.ForeignKey(Order,related_name='items',on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='products',on_delete=models.DO_NOTHING, null=False, blank=False)
+    qty = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
+    Is_received = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now=True, null=False)
+
+
+    def __str__(self):
+        return str(self.order_no) + '-' +str(self.order_item_no)
+
+
+class Invoice(models.Model):
+    invoice_number=models.BigIntegerField(primary_key=True,null=False,blank=False)
+    supplier_name=models.CharField(max_length=50)
+    order_number=models.CharField(null=False,blank=False,max_length=50)
+    invoice_date = models.DateField(auto_now_add=False, auto_now=False, blank=False, null=False)
+    invoice_total=models.DecimalField(max_digits=10,decimal_places=2,null=False,blank=False)
+    vehicle_number=models.CharField(max_length=100,null=False,blank=False)
+    INVOICE_TYPE_CHOICES=[
+        ('CASH','CASH'),
+        ('CREDIT','CREDIT'),
+    ]
+
+    invoice_type=models.CharField(max_length=50,null=True,choices=INVOICE_TYPE_CHOICES)
+    created_on=models.DateTimeField(auto_now=True,null=False)
+    is_received=models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.invoice_number) + '-' + str(self.order_number)
+
+
+class Invoice_Item(models.Model):
+    id=models.BigAutoField(primary_key=True)
+    invoice_number=models.ForeignKey(Invoice,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.DO_NOTHING)
+    qty=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    rate = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    extAmount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    discount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    NetAmount=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+
+    def __str__(self):
+        return str(self.invoice_number)
+
+
 
 class Bill(models.Model):
-    Bill_number=models.BigIntegerField(primary_key=True )
+    Bill_number=models.BigIntegerField(primary_key=True)
     Bill_date=models.DateField(auto_now_add=False,auto_now=False,blank=True,null=True)
     name=models.CharField('Customer Name',max_length=120,default='',blank=True,null=True)
 
@@ -18,18 +132,6 @@ class Bill(models.Model):
         ('Debit','Debit'),
     )
     invoice_type=models.CharField(max_length=100,default='',blank=True,null=True,choices=invoice_type_choice)
-
-
-
-class Product(models.Model):
-    product_id=models.CharField(primary_key=True,max_length=50)
-    product_name=models.CharField(max_length=100)
-    price=models.DecimalField('Unit Price',max_digits=10,decimal_places=2,default=0.00)
-    order_level=models.IntegerField('Pre Order Level', default=0,blank=True,null=True)
-
-    def __str__(self):
-        return self.product_name
-
 
 class Billing_Detail(models.Model):
     id=models.BigAutoField(primary_key=True)

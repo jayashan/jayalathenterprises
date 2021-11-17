@@ -53,5 +53,20 @@ urlpatterns = [
 
 
 
+    path('test/',views.Add_Invoice,name='Add_Invoice'),
+
+
+    path('Make_Order/',views.Make_Order,name='Make_Order'),
+    path('save_orders/',views.save_orders,name='save_orders'),
+    path('view_order/<pk>/',views.view_order,name='view_order'),
+
+
+
+    path('inventory/',views.inventory,name='inventory'),
+    path('save_invoices/',views.save_invoices,name='save_invoices')
+
+
+
+
 
 ]

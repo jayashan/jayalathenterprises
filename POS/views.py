@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, request, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from .forms import BillForm,Bill_Detail_Form,BillSearchForm,Add_Fuels_Form,Update_Fuels_Form
-from .models import Billinsert,Items,StudentData,Bill,Billing_Detail,Product
+from .forms import BillForm,Bill_Detail_Form,BillSearchForm,Add_Fuels_Form,Update_Fuels_Form,Add_Invoice_Form
+from .models import *
+from django.db.models import F
 from django.db import connection
 from django.contrib import messages
-from .filters import BillFilter
+from .filters import BillFilter,OrderFilter
 from django.views.generic import ListView
+import datetime
 import random
 
 
@@ -32,6 +34,8 @@ def home(request):
     # return HttpResponse("Jayalath_Enterprises")
     title="Jayalath Enterprises"
     header="Jayalath Enterprises Home Page"
+
+
     context={
         "title":title,
         "header":header,
@@ -329,8 +333,10 @@ def render_pdf_view(request):
 
 def settings_home(request):
     title='settings'
+    orders = Order.objects.all()
     context={
-        'title':title
+        'title':title,
+        'orders':orders
 
     }
     return render(request,'settings_pages/index.html',context)
@@ -379,3 +385,195 @@ def Delete_Fuels(request,pk):
         return redirect('/Add_Fuels')
 
     return render(request,'settings_pages/Delete_Fuels.html')
+
+
+def Add_Invoice(request):
+    title='Add_Invoices'
+    form=Add_Invoice_Form(request.POST or None)
+    # queryset=Order.objects.all()
+    orders=Order.objects.all()
+
+    # myFilter=OrderFilter(request.GET,queryset=queryset)
+    # queryset=myFilter.qs
+
+
+    context={
+        'title':title,
+        'form':form,
+        'order':orders,
+        # 'queryset':queryset,
+        # 'myFilter':myFilter
+    }
+
+    return render(request,'settings_pages/Add_Invoices.html',context)
+
+
+def Make_Order(request):
+    title='Orders'
+    products=Product.objects.all()
+    order=Order.objects.all()
+
+    context={
+        'title':title,
+        'products':products,
+    }
+    return render(request,'settings_pages/Make_Order.html',context)
+
+
+@csrf_exempt
+def save_orders(request):
+    today=datetime.datetime.now().strftime("%y%m%d")
+
+    data=request.POST.get('data')
+    order_number=request.POST.get('order_no')
+    date=request.POST.get('date')
+    name=request.POST.get('user')
+    option = request.POST.get('option')
+
+
+    key=today+'-'+order_number
+
+
+    print(order_number)
+    print(date)
+    print(name)
+    print(option)
+    print(data)
+    print(key)
+
+    dict_data=json.loads(data)
+    order=Order()
+
+    order.order_no=key
+    order.date_of_order=date
+    order.made_by=name
+    order.order_options=option
+
+    order.save()
+
+    try:
+        for data in dict_data:
+            product_name=(data['product_name'])
+            qty=(data['qty'])
+
+            order_items=Order_Item()
+
+            order_items.order_no_id=key
+            order_items.product_id=product_name
+            order_items.qty=qty
+
+            order_items.save()
+    except:
+        return render(request,'settings_pages/Make_Order.html')
+
+    return render(request, 'settings_pages/Make_Order.html')
+
+
+def view_order(request,*args,**kwargs):
+    pk=kwargs.get('pk')
+
+
+    order=get_object_or_404(Order,pk=pk)
+
+
+    orders=Order.objects.get(pk=pk)
+    items=orders.items.all()
+
+    order_items=Order_Item.objects.all()
+    products=Product.objects.all()
+
+
+
+    context={
+        'order':order,
+        'items':items,
+
+        'order_items':order_items,
+        'products':products,
+
+
+
+    }
+
+    return render(request,'settings_pages/view_order.html',context)
+
+
+def inventory(request):
+    product=Product.objects.all()
+
+    context={
+        'product':product,
+    }
+    return render(request,'settings_pages/inventory.html',context)
+
+@csrf_exempt
+def save_invoices(request):
+    OrderNo=request.POST.get('OrderNo')
+    supplier=request.POST.get('supplier')
+    InvoiceNo=request.POST.get('InvoiceNo')
+    date=request.POST.get('date')
+    VehicleNo=request.POST.get('VehicleNo')
+    type=request.POST.get('type')
+    TotalInvoice=request.POST.get('TotalInvoice')
+    data=request.POST.get('data')
+
+    print(OrderNo)
+    print(InvoiceNo)
+    print(date)
+    print(VehicleNo)
+    print(TotalInvoice)
+    print(data)
+
+    dict_data=json.loads(data)
+    invoice=Invoice()
+
+    invoice.invoice_number=InvoiceNo
+    invoice.supplier_name = supplier
+    invoice.order_number = OrderNo
+
+    invoice.invoice_date=date
+    invoice.invoice_total = TotalInvoice
+    invoice.vehicle_number=VehicleNo
+    invoice.invoice_type=type
+
+    invoice.save()
+    print(dict_data)
+
+    try:
+
+        for data in dict_data:
+            ProductName=(data['ProductName'])
+            Qty=(data['Qty'])
+            rate=(data['rate'])
+            ExtAmount=(data['ExtAmount'])
+            Discount=(data['Discount'])
+            NetAmount=(data['NetAmount'])
+
+            items = Invoice_Item()
+
+            items.invoice_number_id=InvoiceNo
+            items.product_id = ProductName
+            items.qty=Qty
+            items.rate=rate
+            items.extAmount=ExtAmount
+            items.discount=Discount
+            items.NetAmount=NetAmount
+
+            items.save()
+
+            print('success....!')
+
+            if Stock.objects.filter(product=ProductName):
+                Stock.objects.filter(product=ProductName).update(qty=F('qty') + items.qty)
+            else:
+                fuel_name = Product.objects.get(product_id=ProductName)
+
+
+                s = Stock(product=fuel_name, qty=items.qty, type='FUEL', company_name='CPC', created_by='Anton')
+                s.save()
+
+
+
+    except:
+        return render(request, 'settings_pages/inventory.html')
+    return render(request,'settings_pages/inventory.html')

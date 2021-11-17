@@ -1,5 +1,5 @@
 from django import forms
-from.models import Bill,Billing_Detail,Product
+from.models import Bill,Billing_Detail,Product,Invoice
 import datetime
 
 class BillForm(forms.ModelForm):
@@ -26,10 +26,17 @@ class BillSearchForm(forms.ModelForm):
 class Add_Fuels_Form(forms.ModelForm):
     class Meta:
         model=Product
-        fields=['product_id','product_name','price','order_level']
+        fields=['product_id','product_name','price','brought_price','discount','category_type']
 
 
 class Update_Fuels_Form(forms.ModelForm):
     class Meta:
         model=Product
-        fields = ['product_id', 'product_name', 'price', 'order_level']
+        fields = ['product_id', 'product_name', 'price','brought_price','discount','category_type']
+
+
+class Add_Invoice_Form(forms.ModelForm):
+    class Meta:
+        model=Invoice
+        fields=['invoice_number','invoice_date','invoice_total','vehicle_number','invoice_type','order_number']
+

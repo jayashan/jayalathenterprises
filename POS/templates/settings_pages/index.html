@@ -1,39 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">
-  <!-- Content here -->
-        <div class="position-absolute top-50 start-50 translate-middle">
-            <div class="shadow p-3 mb-5 bg-body rounded">
-                <div class="container">
-                  <div class="row row-cols-2">
-                    <div class="col">
-                        <figure class="figure">
-                          <img src="#" class="figure-img img-fluid rounded" alt="...">
-                          <figcaption class="figure-caption">A caption for the above image.</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col">
-                        <figure class="figure">
-                          <img src="#" class="figure-img img-fluid rounded" alt="...">
-                          <figcaption class="figure-caption">A caption for the above image.</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col">
-                        <figure class="figure">
-                          <img src="#" class="figure-img img-fluid rounded" alt="...">
-                          <figcaption class="figure-caption">A caption for the above image.</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col">
-                        <figure class="figure">
-                          <img src="#" class="figure-img img-fluid rounded" alt="...">
-                          <figcaption class="figure-caption">A caption for the above image.</figcaption>
-                        </figure>
-                    </div>
+<h1>{{header}}</h1>
+      {% include 'navibar.html' %}
+      <div class="container-fluid">
+          <div class="position-absolute top-50 start-50 translate-middle">
+              <div class="card border-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Orders</div>
+                  <div class="card-body text-primary">
+                    <h5 class="card-title">Your Pending Orders</h5>
+                        {% for order in orders %}
+                      </br>
+                            <a href="/view_order/{{order.order_no}}">{{order.order_no}}</a>
+                            {% if order.Is_pending %}
+                                <span class="badge rounded-pill bg-success">Pending..</span>
+                            {% endif %}
+                        {% endfor %}
                   </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+              </div>
+          </div>
+      </div>
 {% endblock %}

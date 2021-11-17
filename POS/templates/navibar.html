@@ -15,10 +15,26 @@
             <a class="nav-link active" aria-current="page" href="{% url 'settings_home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_invoice' %}">ADD INVOICES</a>
+            <a class="nav-link" href="{% url 'add_invoice' %}">SALES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inventory' %}">Inventory</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              ORDERS
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'Make_Order' %}">Make Orders</a></li>
+<!--              <li><a class="dropdown-item" href="#">Another action</a></li>-->
+<!--              <li>-->
+<!--                <hr class="dropdown-divider">-->
+<!--              </li>-->
+<!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               ADD
             </a>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
@@ -31,7 +47,7 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               REPORTS
             </a>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">

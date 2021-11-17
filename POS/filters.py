@@ -14,3 +14,11 @@ class BillFilter(django_filters.FilterSet):
         model=Bill
         fields='__all__'
         exclude=['sub_total','balance','last_updated','created_at','Bill_date']
+
+
+class OrderFilter(django_filters.FilterSet):
+
+    class Meta:
+        model=Order
+        fields='__all__'
+
