@@ -70,12 +70,22 @@
                         <label class="input-group-text" for="product_name">SELECT</label>
                         <select class="form-select" id="product_name" onchange="">
                           <option disabled="true" selected>-----------</option>
-                          {% for products in products %}
-                            <option data-unit_price={{products.price}}>{{products.product_id}}</option>
+                          {% for product in products %}
+                            {% for i in product.stock_products.all %}
+                              <option data-unit_price="{{product.price}}" data-qty="{{i.qty}}">{{product.product_id}}</option>
+                            {% endfor %}
                           {% endfor %}
                         </select>
+                        {% for product in products %}
+                            {{product.product_name}}
+                            {% for i in product.stock_products.all %}
+                                {{i.qty}}
+                            {% endfor %}
+                        {% endfor %}
                       </div>
-                      <label class="font-weight-lighter">Unit Price Rs. </label></label><label  class="font-weight-lighter" id="lbl_unit_price">0.00</label>
+                      <label>Unit Price Rs. </label></label><label  class="font-weight-lighter" id="lbl_unit_price">0.00</label>
+                      </br>
+                      <label>Stock Amount (Ltr) : </label><label class="font-weight-lighter" id="lbl_qty"> 0.00</label>
                     </div>
                     <div class="form-group">
                       <label>Price</label>
@@ -146,13 +156,21 @@
             let unit_price=0.00;
             let txt_price=0.00;
 
+
             document.getElementById("price").value=txt_price;
             document.getElementById("no_of_ltr").innerHTML="";
 
+
             var selected = this.options[this.selectedIndex];
+
             unit_price = selected.dataset.unit_price;
+            qty=selected.dataset.qty;
+
+
 <!--            priceMaterial.innerText = price.toFixed(2);-->
             document.getElementById("lbl_unit_price").innerHTML = unit_price;
+            document.getElementById("lbl_qty").innerHTML = qty;
+
           });
 
           function productDisplay(ctl) {

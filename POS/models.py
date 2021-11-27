@@ -37,7 +37,7 @@ class Supplier(models.Model):
 
 class Stock(models.Model):
     stock_id=models.BigAutoField(primary_key=True)
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='stock_products')
     qty=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
     TYPE_CHOICES=[

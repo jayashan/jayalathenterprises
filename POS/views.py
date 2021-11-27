@@ -46,10 +46,14 @@ def add_invoice(request):
     title='Add Invoices'
     header='Add Invoices'
     products=Product.objects.all()
-
-
-
+    id=Product.product_id
     billnumber=random.randint(1, 10000000000)*2
+    # stock=Stock.objects.filter(product='P92')
+    # stock = Stock.objects.filter(product=id)
+
+    stock=Stock.objects.all()
+    invoice=Invoice.objects.all()
+
 
     # form=BillForm(request.POST or None)
     #
@@ -61,6 +65,7 @@ def add_invoice(request):
         "header":header,
         "products":products,
         "billnumber":billnumber,
+        "stock":stock,
 
 
     }
@@ -205,7 +210,7 @@ def save_all(request):
             dict_data=json.loads(data)
 
             bill = Bill()
-
+            stock=Stock.objects.all()
 
             bill.Bill_number = bill_number
             bill.Bill_date = bill_date
@@ -231,6 +236,12 @@ def save_all(request):
                     bill_details.product_id_id=product_name
 
                     bill_details.save()
+
+                    if Stock.objects.filter(product=product_name):
+                        Stock.objects.filter(product=product_name).update(qty=F('qty') - bill_details.qty)
+                    else:
+                        print('error')
+
             except:
                 return render(request, 'addinvoice.html')
 
@@ -334,9 +345,12 @@ def render_pdf_view(request):
 def settings_home(request):
     title='settings'
     orders = Order.objects.all()
+    stock=Stock.objects.all()
+
     context={
         'title':title,
-        'orders':orders
+        'orders':orders,
+        'stock':stock,
 
     }
     return render(request,'settings_pages/index.html',context)

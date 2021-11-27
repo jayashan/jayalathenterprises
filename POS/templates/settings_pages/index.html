@@ -1,22 +1,55 @@
 {% extends 'base.html' %}
+
+{%block scripts%}
+<script>
+// jquery function
+$(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{%for data in stock%}'{{data.product}}',{%endfor%}],
+                datasets: [{
+                    label: '',
+                    data: [{%for data in stock%}{{data.qty}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+});
+    });
+</script>
+{%endblock scripts%}
+
 {% block content %}
 <h1>{{header}}</h1>
       {% include 'navibar.html' %}
-      <div class="container-fluid">
-          <div class="position-absolute top-50 start-50 translate-middle">
-              <div class="card border-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Orders</div>
-                  <div class="card-body text-primary">
-                    <h5 class="card-title">Your Pending Orders</h5>
-                        {% for order in orders %}
-                      </br>
-                            <a href="/view_order/{{order.order_no}}">{{order.order_no}}</a>
-                            {% if order.Is_pending %}
-                                <span class="badge rounded-pill bg-success">Pending..</span>
-                            {% endif %}
-                        {% endfor %}
-                  </div>
-              </div>
+      <div class="container">
+          <div class="myform">
+
+              <canvas id="myChart" width="600" height="300"></canvas>
           </div>
       </div>
 {% endblock %}
