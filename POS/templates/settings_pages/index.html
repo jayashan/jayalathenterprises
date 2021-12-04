@@ -10,7 +10,7 @@ $(document).ready(function(){
             data: {
                 labels: [{%for data in stock%}'{{data.product}}',{%endfor%}],
                 datasets: [{
-                    label: '',
+                    label: 'STOCK LEVELS',
                     data: [{%for data in stock%}{{data.qty}},{%endfor%}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

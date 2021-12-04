@@ -48,7 +48,7 @@
                         <select class="form-select" id="product_name" aria-label="Example select with button addon">
                             <option selected>Choose...</option>
                             {% for product in product %}
-                                <option data-unit_price="{{product.price}}" data-discount="{{product.discount}}">{{product.product_id}}</option>
+                                <option data-unit_price="{{product.price}}" data-evoporation_amount="{{product.Evap_amount}}" data-discount="{{product.discount}}">{{product.product_id}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -58,6 +58,7 @@
                     </div>
                 <label id="lbl_discount" hidden></label>
                 <label id="lbl_unit_price" hidden></label>
+                <label id="lbl_Evaporation_amount" hidden></label>
                 <label id="ext_amount" hidden></label>
                 <label id="lbl_discount_amount" hidden></label>
                 <label id="value" hidden></label>
@@ -101,14 +102,17 @@
 
     document.getElementById("product_name").addEventListener('change',function(){
         let unit_price=0.00;
+        let Evaporation_amount=0.00;
 
         var selected=this.options[this.selectedIndex];
 
         unit_price=selected.dataset.unit_price;
         discount=selected.dataset.discount;
+        Evaporation_amount=selected.dataset.evoporation_amount;
 
         document.getElementById("lbl_unit_price").innerHTML=unit_price;
         document.getElementById("lbl_discount").innerHTML=discount;
+        document.getElementById("lbl_Evaporation_amount").innerHTML=Evaporation_amount;
 
 
     });
@@ -117,11 +121,13 @@
         var qty=document.getElementById("qty").value;
         var discount=parseFloat(document.getElementById("lbl_discount").innerHTML);
         var unit_price=parseFloat(document.getElementById("lbl_unit_price").innerHTML);
+        var Evaporation_Amount=parseFloat(document.getElementById("lbl_Evaporation_amount").innerHTML);
+
 
 
         var Full_Discount=qty*discount;
         var ext_amount=qty*unit_price;
-        var amount=ext_amount-Full_Discount;
+        var amount=(ext_amount-Full_Discount)-Evaporation_Amount;
 
 
         document.getElementById("ext_amount").innerHTML=ext_amount.toFixed(2);

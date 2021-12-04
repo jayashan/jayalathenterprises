@@ -17,6 +17,9 @@
                     {{ form.price|as_crispy_field }}
                 </div>
                 <div class="mb-3">
+                    {{ form.Evap_amount|as_crispy_field }}
+                </div>
+                <div class="mb-3">
                     {{ form.brought_price|as_crispy_field }}
                 </div>
                 <div class="mb-3">
@@ -37,6 +40,7 @@
                     <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Price</th>
+                    <th>Evap_amount</th>
                     <th>Brought Price</th>
                     <th>Discount (per ltr)</th>
                     <th>Category</th>
@@ -48,6 +52,7 @@
                     <td>{{instances.product_id}}</td>
                     <td>{{instances.product_name}}</td>
                     <td>{{instances.price}}</td>
+                    <td>{{instances.Evap_amount}}</td>
                     <td>{{instances.brought_price}}</td>
                     <td>{{instances.discount}}</td>
                     <td>{{instances.category_type}}</td>
