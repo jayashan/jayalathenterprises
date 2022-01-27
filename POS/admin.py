@@ -27,6 +27,13 @@ admin.site.register(Order_Item)
 admin.site.register(Invoice)
 admin.site.register(Invoice_Item)
 admin.site.register(Supplier)
+admin.site.register(Station)
+admin.site.register(Shift)
+admin.site.register(Shift_Detail)
+admin.site.register(Shift_Money)
+
+
+
 
 
 

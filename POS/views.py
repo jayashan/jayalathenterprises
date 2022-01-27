@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, request, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from .forms import BillForm,Bill_Detail_Form,BillSearchForm,Add_Fuels_Form,Update_Fuels_Form,Add_Invoice_Form
+from .forms import *
 from .models import *
 from django.db.models import F
 from django.db import connection
@@ -346,11 +346,13 @@ def settings_home(request):
     title='settings'
     orders = Order.objects.all()
     stock=Stock.objects.all()
+    shift=Shift.objects.all()
 
     context={
         'title':title,
         'orders':orders,
         'stock':stock,
+        'shift':shift,
 
     }
     return render(request,'settings_pages/index.html',context)
@@ -591,3 +593,136 @@ def save_invoices(request):
     except:
         return render(request, 'settings_pages/inventory.html')
     return render(request,'settings_pages/inventory.html')
+
+
+def shift_details(request,*args,**kwargs):
+    pk = kwargs.get('id')
+    s=Shift_Detail()
+    shift = get_object_or_404(Shift, id=pk)
+    price=0
+    shift_money=Shift_Money.objects.filter(shift_id=shift.id)
+    form=Shift_Money_Form(request.POST or None)
+    shift_id=shift.id
+
+    if request.method == 'POST' and 'btn_shift_money' in request.POST:
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.shift_id = shift_id
+            print(shift_id)
+            form.save()
+            messages.success(request, 'Saved..!')
+
+
+    if request.method == 'POST' and 'btn_shift_details' in request.POST:
+            shift_id = request.POST.get('id')
+            shift_name = request.POST.get('shift_name')
+            product=request.POST.get('product')
+            pre_reading = request.POST.get('pre_reading')
+            end_reading = request.POST.get('end_reading')
+            used = request.POST.get('used')
+            worker = request.POST.get('worker')
+            operator_on = request.POST.get('operator_on')
+            operator_off = request.POST.get('operator_off')
+            profit=request.POST.get('profit')
+            total=request.POST.get('total')
+
+            unit_price=Product.objects.filter(product_id=product).values_list('price',flat=True)
+
+
+            for n in unit_price:
+                price = format(float(n)+100, '.2f')
+
+            if shift.Is_On == True:
+                    shift.EndReading=end_reading
+                    shift.Operator_ON=''
+                    shift.Operator_OFF=operator_off
+                    shift.Is_On=False
+
+                    s.Shift_ID_id = shift_id
+                    s.shift_Name = shift_name
+                    s.product_id=product
+                    s.PreReading = pre_reading
+                    s.EndReading = end_reading
+                    s.used=0.00
+                    s.worker = worker
+                    s.Operator_ON = operator_on
+                    s.Operator_OFF = operator_off
+                    s.Is_Using = False
+                    # shift.Pre_Money = 0.00
+                    # shift.Profit = 0.00
+                    # shift.Total = 0.00
+                    s.Profit=price
+
+                    print (price)
+                    shift.save()
+                    s.save()
+                    return redirect('/settings_home')
+
+
+            elif shift.Is_On == False:
+                    shift.worker = worker
+                    shift.PreReading=pre_reading
+                    shift.Operator_ON=operator_on
+                    shift.Operator_OFF=''
+                    shift.Is_On = True
+
+                    s.Shift_ID_id = shift_id
+                    s.shift_Name = shift_name
+                    s.product_id = product
+                    s.PreReading = pre_reading
+                    s.EndReading = end_reading
+                    s.used = 0.00
+                    s.worker = worker
+                    s.Operator_ON = operator_on
+                    s.Operator_OFF = operator_off
+                    s.Is_Using = True
+                    # shift.Pre_Money = 0.00
+                    # shift.Profit = 0.00
+                    # shift.Total = 0.00
+
+
+                    shift.save()
+                    s.save()
+
+
+                    for n in unit_price:
+                        price = n
+
+                    print(price)
+                    # return redirect('/settings_home')
+
+    context = {
+        'shift': shift,
+        'form': form,
+        'shift_money':shift_money,
+
+
+
+    }
+
+    return render(request, 'settings_pages/shift_details.html', context)
+
+
+
+
+def make_shifts(request):
+    form=Make_Shifts_Form(request.POST or None)
+    station=Station.objects.all()
+
+    if form.is_valid():
+        # shift_name=form.cleaned_data['shift_Name']
+        #
+        # if Shift.objects.filter(shift_Name=shift_name).exists():
+        #     messages.error(request, 'already exists')
+        # else:
+
+        form.save()
+        messages.success(request,'saved')
+        return redirect('/settings_home')
+
+    context = {
+        'form': form,
+        'station': station,
+    }
+
+    return render(request,'settings_pages/make_shifts.html',context)

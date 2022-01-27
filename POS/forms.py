@@ -1,5 +1,7 @@
 from django import forms
-from.models import Bill,Billing_Detail,Product,Invoice
+from django.forms import modelform_factory, HiddenInput
+
+from .models import *
 import datetime
 
 class BillForm(forms.ModelForm):
@@ -39,4 +41,15 @@ class Add_Invoice_Form(forms.ModelForm):
     class Meta:
         model=Invoice
         fields=['invoice_number','invoice_date','invoice_total','vehicle_number','invoice_type','order_number']
+
+
+class Make_Shifts_Form(forms.ModelForm):
+    class Meta:
+        model=Shift
+        fields=['shift_Name','product','worker','PreReading','Operator_ON']
+
+class Shift_Money_Form(forms.ModelForm):
+    class Meta:
+        model=Shift_Money
+        fields=['shift','amount']
 

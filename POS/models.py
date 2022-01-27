@@ -143,6 +143,67 @@ class Billing_Detail(models.Model):
     total=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
 
+class Station(models.Model):
+    Station_Name=models.CharField(primary_key=True,max_length=50,null=False)
+    Station_Fuel=models.ForeignKey(Product,on_delete=models.DO_NOTHING,null=False,blank=False)
+    Is_On=models.BooleanField(default=False)
+    Operator_ON = models.CharField(max_length=50, null=True, blank=True)
+    Operator_OFF = models.CharField(max_length=50, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.Station_Name)
+
+
+class Shift(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    shift_Name = models.ForeignKey(Station, on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, null=True, blank=True,related_name='shift_product')
+    worker = models.CharField(max_length=50, null=True, blank=True)
+    PreReading = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    EndReading = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    Operator_ON = models.CharField(max_length=50, null=True, blank=True)
+    Operator_OFF = models.CharField(max_length=50, null=True, blank=True)
+    Is_On = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.shift_Name)
+
+
+class Shift_Detail(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    Shift_ID=models.ForeignKey(Shift,related_name='shift',on_delete=models.CASCADE)
+    shift_Name=models.CharField(max_length=50,null=False,blank=True)
+    product=models.ForeignKey(Product,on_delete=models.DO_NOTHING,null=True,blank=True)
+    PreReading=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    EndReading=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    used=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    worker=models.CharField(max_length=50)
+    Operator_ON=models.CharField(max_length=50,null=False)
+    Operator_OFF=models.CharField(max_length=50,null=True,blank=True)
+    Shift_On_Date=models.DateTimeField(auto_now=True, null=False)
+    Shift_Off_Date=models.DateTimeField(auto_now=True, null=False)
+    Is_Using=models.BooleanField(default=True)
+    Pre_Money=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    Profit=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    Total=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    Short_money=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+
+
+    def __str__(self):
+        return str(self.Shift_ID)
+
+
+class Shift_Money(models.Model):
+    id=models.BigAutoField(primary_key=True)
+    shift=models.ForeignKey(Shift,on_delete=models.CASCADE,default=0)
+    amount=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    date=models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return str(self.id) +'-'+str(self.shift)
+
+
 class Customer(models.Model):
     company_id=models.IntegerField(null=False)
     company_name=models.CharField(max_length=100)

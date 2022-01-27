@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="myform">
+        <legend>Add Shifts</legend>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{form.shift_Name|as_crispy_field}}
+            </div>
+            <div class="mb-3">
+                {{form.product|as_crispy_field}}
+            </div>
+            <div class="mb-3">
+                {{form.worker|as_crispy_field}}
+            </div>
+            <div class="mb-3">
+                {{form.PreReading|as_crispy_field}}
+            </div>
+            <div class="mb-3">
+                {{form.Operator_ON|as_crispy_field}}
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -43,12 +43,15 @@ urlpatterns = [
     path('pdf/<pk>/',views.customer_render_pdf_view,name='print-customer-view'),
 
 
-
+    # settings pages
 
     path('settings_home/',views.settings_home,name='settings_home'),
     path('Add_Fuels/',views.Add_Fuels,name='Add_Fuels'),
     path('Update_Fuels/<str:pk>/',views.Update_Fuels,name='Update_Fuels'),
     path('Delete_Fuels/<str:pk>/',views.Delete_Fuels,name='Delete_Fuels'),
+
+
+    path('make_shifts/',views.make_shifts,name='make_shifts'),
 
 
 
@@ -63,7 +66,11 @@ urlpatterns = [
 
 
     path('inventory/',views.inventory,name='inventory'),
-    path('save_invoices/',views.save_invoices,name='save_invoices')
+    path('save_invoices/',views.save_invoices,name='save_invoices'),
+
+
+    path('shift_details/<str:id>/',views.shift_details,name='shift_details'),
+    # path('shift_off',views.Shift_Off,name='shift_off'),
 
 
 
