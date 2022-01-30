@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, request, JsonResponse
+from django.http import HttpResponse, request, JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from .forms import *
 from .models import *
@@ -695,9 +695,6 @@ def shift_details(request,*args,**kwargs):
         'shift': shift,
         'form': form,
         'shift_money':shift_money,
-
-
-
     }
 
     return render(request, 'settings_pages/shift_details.html', context)
@@ -726,3 +723,10 @@ def make_shifts(request):
     }
 
     return render(request,'settings_pages/make_shifts.html',context)
+
+
+def Delete_Shift_Money(request,pk):
+    queryset=Shift_Money.objects.get(pk=pk)
+    queryset.delete()
+    return redirect(request.META['HTTP_REFERER'])
+

@@ -71,6 +71,7 @@ urlpatterns = [
 
     path('shift_details/<str:id>/',views.shift_details,name='shift_details'),
     # path('shift_off',views.Shift_Off,name='shift_off'),
+    path('Delete_Shift_Money/<str:pk>',views.Delete_Shift_Money,name='Delete_Shift_Money')
 
 
 

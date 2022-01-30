@@ -51,5 +51,5 @@ class Make_Shifts_Form(forms.ModelForm):
 class Shift_Money_Form(forms.ModelForm):
     class Meta:
         model=Shift_Money
-        fields=['shift','amount']
+        fields=['id','shift','amount']
 
