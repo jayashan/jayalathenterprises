@@ -145,10 +145,11 @@ class Billing_Detail(models.Model):
 
 class Station(models.Model):
     Station_Name=models.CharField(primary_key=True,max_length=50,null=False)
-    Station_Fuel=models.ForeignKey(Product,on_delete=models.DO_NOTHING,null=False,blank=False)
+    Station_Fuel=models.ForeignKey(Product,on_delete=models.DO_NOTHING,related_name='station_fuel')
     Is_On=models.BooleanField(default=False)
-    Operator_ON = models.CharField(max_length=50, null=True, blank=True)
-    Operator_OFF = models.CharField(max_length=50, null=True, blank=True)
+    meter = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    Station_Date = models.DateTimeField(auto_now=True, null=False)
+
 
 
     def __str__(self):

@@ -627,7 +627,7 @@ def shift_details(request,*args,**kwargs):
             total=request.POST.get('total')
 
             unit_price=Product.objects.filter(product_id=product).values_list('price',flat=True)
-
+            Station.objects.filter(Station_Name=shift_name).update(meter=end_reading)
 
             for n in unit_price:
                 price = format(float(n)+100, '.2f')
@@ -703,23 +703,31 @@ def shift_details(request,*args,**kwargs):
 
 
 def make_shifts(request):
-    form=Make_Shifts_Form(request.POST or None)
     station=Station.objects.all()
+    product=Product.objects.all()
 
-    if form.is_valid():
-        # shift_name=form.cleaned_data['shift_Name']
-        #
-        # if Shift.objects.filter(shift_Name=shift_name).exists():
-        #     messages.error(request, 'already exists')
-        # else:
 
-        form.save()
+    if request.method =='POST':
+        shift_name=request.POST.get('Station_Name')
+        product=request.POST.get('FuelCode')
+        worker=request.POST.get('Pump_Operator')
+        Pre_Reading=request.POST.get('meter')
+        operator_on= request.POST.get('Operator_On')
+
+        shift=Shift()
+        shift.shift_Name_id=shift_name
+        shift.product_id=product
+        shift.worker=worker
+        shift.PreReading=Pre_Reading
+        shift.Operator_ON=operator_on
+
+        shift.save()
         messages.success(request,'saved')
         return redirect('/settings_home')
 
     context = {
-        'form': form,
         'station': station,
+        'product':product,
     }
 
     return render(request,'settings_pages/make_shifts.html',context)

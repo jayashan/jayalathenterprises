@@ -143,8 +143,6 @@ $(document).ready(function(){
 <!--              </div>-->
               {% if i.Is_On%}
                 <a href="{%url 'shift_details' i.id %}" class="btn btn-success" role="button">{{i.shift_Name}}</a>
-              {% else %}
-                <a href="{%url 'shift_details' i.id %}" class="btn btn-danger" role="button">{{i.shift_Name}}</a>
               {%endif%}
 <!--                    <a href="{%url 'shift_details' i.shift_Name %}">{{i.shift_Name}}</a>-->
                     </br>
