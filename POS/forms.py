@@ -28,13 +28,13 @@ class BillSearchForm(forms.ModelForm):
 class Add_Fuels_Form(forms.ModelForm):
     class Meta:
         model=Product
-        fields=['product_id','product_name','price','Evap_amount','brought_price','discount','category_type']
+        fields=['product_id','product_name','price','evaporation','brought_price','discount','category_type']
 
 
 class Update_Fuels_Form(forms.ModelForm):
     class Meta:
         model=Product
-        fields = ['product_id', 'product_name', 'price','Evap_amount','brought_price','discount','category_type']
+        fields = ['product_id', 'product_name', 'price','evaporation','brought_price','discount','category_type']
 
 
 class Add_Invoice_Form(forms.ModelForm):

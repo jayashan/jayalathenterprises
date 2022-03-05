@@ -5,7 +5,7 @@ class Product(models.Model):
     product_id=models.CharField(primary_key=True,max_length=50)
     product_name=models.CharField(max_length=100)
     price=models.DecimalField('Unit Price',max_digits=10,decimal_places=2,default=0.00)
-    Evap_amount = models.DecimalField('Evaporation Allowance', max_digits=10, decimal_places=2, default=0.00)
+    evaporation=models.DecimalField('Evaporation Allowance', max_digits=10, decimal_places=2, default=0.00)
     brought_price=models.DecimalField('Brought Price',max_digits=10,decimal_places=2,default=0.00)
     discount=models.DecimalField(max_digits=10,decimal_places=2,null=False,default=0.00)
 
