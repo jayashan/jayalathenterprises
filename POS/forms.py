@@ -53,3 +53,7 @@ class Shift_Money_Form(forms.ModelForm):
         model=Shift_Money
         fields=['id','shift','amount']
 
+class Station_Form(forms.ModelForm):
+    class Meta:
+        model=Station
+        fields=['Station_Name','Station_Fuel','meter']

@@ -1,3 +1,5 @@
+
+from decimal import Decimal
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, request, JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
@@ -10,6 +12,7 @@ from .filters import BillFilter,OrderFilter
 from django.views.generic import ListView
 import datetime
 import random
+
 
 
 # For Report Lab
@@ -626,70 +629,85 @@ def shift_details(request,*args,**kwargs):
             profit=request.POST.get('profit')
             total=request.POST.get('total')
 
+
+
+            print('shift id -'+shift_id)
+            print('shift name -'+shift_name)
+            print('product -'+product)
+            print('pre reading -'+ pre_reading)
+            print('end reading -'+end_reading)
+            print('used -'+used)
+            print('worker -'+worker)
+            print('operator_on -'+operator_on)
+            print('operator_off -'+operator_off)
+            print('profit -'+profit)
+            print('total -'+total)
+
             unit_price=Product.objects.filter(product_id=product).values_list('price',flat=True)
             Station.objects.filter(Station_Name=shift_name).update(meter=end_reading)
+            Station.objects.filter(Station_Name=shift_name).update(Is_On=False)
 
             for n in unit_price:
                 price = format(float(n)+100, '.2f')
 
-            if shift.Is_On == True:
-                    shift.EndReading=end_reading
-                    shift.Operator_ON=''
-                    shift.Operator_OFF=operator_off
-                    shift.Is_On=False
 
-                    s.Shift_ID_id = shift_id
-                    s.shift_Name = shift_name
-                    s.product_id=product
-                    s.PreReading = pre_reading
-                    s.EndReading = end_reading
-                    s.used=0.00
-                    s.worker = worker
-                    s.Operator_ON = operator_on
-                    s.Operator_OFF = operator_off
-                    s.Is_Using = False
+            shift.EndReading=end_reading
+            shift.Operator_ON=''
+            shift.Operator_OFF=operator_off
+            shift.Is_On=False
+
+            s.Shift_ID_id = shift_id
+            s.shift_Name = shift_name
+            s.product_id=product
+            s.PreReading = pre_reading
+            s.EndReading = end_reading
+            s.used=0.00
+            s.worker = worker
+            s.Operator_ON = operator_on
+            s.Operator_OFF = operator_off
+            s.Is_Using = False
                     # shift.Pre_Money = 0.00
                     # shift.Profit = 0.00
                     # shift.Total = 0.00
-                    s.Profit=price
+            s.Profit=price
 
-                    print (price)
-                    shift.save()
-                    s.save()
-                    return redirect('/settings_home')
-
-
-            elif shift.Is_On == False:
-                    shift.worker = worker
-                    shift.PreReading=pre_reading
-                    shift.Operator_ON=operator_on
-                    shift.Operator_OFF=''
-                    shift.Is_On = True
-
-                    s.Shift_ID_id = shift_id
-                    s.shift_Name = shift_name
-                    s.product_id = product
-                    s.PreReading = pre_reading
-                    s.EndReading = end_reading
-                    s.used = 0.00
-                    s.worker = worker
-                    s.Operator_ON = operator_on
-                    s.Operator_OFF = operator_off
-                    s.Is_Using = True
-                    # shift.Pre_Money = 0.00
-                    # shift.Profit = 0.00
-                    # shift.Total = 0.00
-
-
-                    shift.save()
-                    s.save()
-
-
-                    for n in unit_price:
-                        price = n
-
-                    print(price)
-                    # return redirect('/settings_home')
+            print (price)
+            shift.save()
+            s.save()
+            return redirect('/settings_home')
+            #
+            #
+            # elif shift.Is_On == False:
+            #         shift.worker = worker
+            #         shift.PreReading=pre_reading
+            #         shift.Operator_ON=operator_on
+            #         shift.Operator_OFF=''
+            #         shift.Is_On = True
+            #
+            #         s.Shift_ID_id = shift_id
+            #         s.shift_Name = shift_name
+            #         s.product_id = product
+            #         s.PreReading = pre_reading
+            #         s.EndReading = end_reading
+            #         s.used = 0.00
+            #         s.worker = worker
+            #         s.Operator_ON = operator_on
+            #         s.Operator_OFF = operator_off
+            #         s.Is_Using = True
+            #         # shift.Pre_Money = 0.00
+            #         # shift.Profit = 0.00
+            #         # shift.Total = 0.00
+            #
+            #
+            #         shift.save()
+            #         s.save()
+            #
+            #
+            #         for n in unit_price:
+            #             price = n
+            #
+            #         print(price)
+            #         # return redirect('/settings_home')
 
     context = {
         'shift': shift,
@@ -703,7 +721,7 @@ def shift_details(request,*args,**kwargs):
 
 
 def make_shifts(request):
-    station=Station.objects.all()
+    station=Station.objects.filter(Is_On=True)
     product=Product.objects.all()
 
 
@@ -720,6 +738,7 @@ def make_shifts(request):
         shift.worker=worker
         shift.PreReading=Pre_Reading
         shift.Operator_ON=operator_on
+        Station.objects.filter(Station_Name=shift_name).update(Is_On=True)
 
         shift.save()
         messages.success(request,'saved')
@@ -738,3 +757,20 @@ def Delete_Shift_Money(request,pk):
     queryset.delete()
     return redirect(request.META['HTTP_REFERER'])
 
+
+def Add_Station(request):
+    title='Add Stations'
+    queryset=Station.objects.all()
+    form=Station_Form(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request,'Saved..!')
+        return redirect('/Add_Station')
+
+    context={
+        'title':title,
+        'form':form,
+        'queryset':queryset,
+    }
+    return render(request,'settings_pages/Add_Station.html',context)
