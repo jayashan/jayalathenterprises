@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" xmlns="http://www.w3.org/1999/html" onload="codeAddress();">
+    <div class="myform">
+        <legend>Shift Details</legend>
+        <form  name="shift_details" method="POST" id="shift_details">
+            <div class="row g-3">
+                {% csrf_token %}
+                <input class="form-control" type="text" name="id" value="{{shift.id}}" readonly>
+                <div class="col-md-4">
+                    <label class="form-label">Shift Name</label>
+                    <input class="form-control" type="text" name="shift_name" value="{{shift.shift_Name}}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Product Name</label>
+                    <input class="form-control" type="text" name="product" value="{{shift.product_id}}" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Pre-Reading</label>
+                    {% if shift.Is_On%}
+                        <input class="form-control" type="text" name="pre_reading" value="{{shift.PreReading}}" readonly>
+                    {% else %}
+                        <input class="form-control" type="text" name="pre_reading" value="{{shift.PreReading}}">
+                    {%endif%}
+                </div>
+                <div class="col-12">
+                    <label class="form-label">End-Reading</label>
+                    <input class="form-control"  type="text" name="end_reading" placeholder="0.00">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Used</label>
+                    <input class="form-control" name="used" type="text" placeholder="Used">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Worker</label>
+                    {% if shift.Is_On%}
+                        <input class="form-control" type="text" name="worker" value="{{shift.worker}}" readonly>
+                    {% else %}
+                        <input class="form-control" type="text" name="worker">
+                    {%endif%}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Operator ON</label>
+                    {% if shift.Is_On%}
+                        <input class="form-control" type="text" name="operator_on" value="{{shift.Operator_ON}}" readonly>
+                    {% else %}
+                        <input class="form-control" type="text" name="operator_on">
+                    {%endif%}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Operator-Off</label>
+                    {% if shift.Is_On%}
+                        <input class="form-control" name="operator_off" type="text">
+                    {% else %}
+                        <input class="form-control" name="operator_off" type="text" value="{{shift.Operator_OFF}}" readonly>
+                    {%endif%}
+                </div>
+                <div class="card">
+                    <h5 class="card-header">Shift Money</h5>
+                    <div class="card-body">
+                        <div class="col-md-6">
+                            <div class="input-group mb-6" id="shift_money">
+        <!--                          <input type="number" class="form-control" placeholder="Money" aria-label="Money" aria-describedby="basic-addon2">-->
+                                <form name="shift_money" method="POST">
+                                    {% csrf_token %}
+                                    <div style="display:none">
+                                        {{form.shift}}
+                                    </div>
+                                    {{form.amount}}
+                                  <div class="input-group-append">
+                                    <button class="btn btn-outline-primary"  name="btn_shift_money" type="submit" id="btn_shift_money">ADD</button>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered" id="money_table">
+                <thead>
+                    <th>Amount</th>
+                    <th>Date/Time</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for n in shift_money%}
+                    <tr>
+                        <td>{{n.amount}}</td>
+                        <td>{{n.date}}</td>
+                        <td><a class="btn btn-danger" href="{% url 'Delete_Shift_Money' n.id %}" role="button">-</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+                <div class="col-md-6">
+                    <label class="form-label">Profit</label>
+                    <input class="form-control" type="text" name="profit" value="" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Total</label>
+                    <input class="form-control"  name="total" type="text" value="" readonly id="total">
+                </div>
+                <div class="col-12">
+                        {% if shift.Is_On%}
+                            <button type="submit" name="btn_shift_details" class="btn btn-danger">Shift OFF</button>
+                        {% else %}
+                            <button type="submit" name="btn_shift_details" class="btn btn-success">Shift ON</button>
+                        {%endif%}
+
+                    <button type="button" class="btn btn-primary" onclick="getTotal();">Primary</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    window.addEventListener("load",getTotal(),false);
+
+    function getTotal(){
+        var table=document.getElementById("money_table");
+        let Total=0.00;
+
+        for(var i=0;i<table.rows.length;i++){
+            Total+=isNaN(table.rows[i].cells[0].innerHTML) ?0:parseFloat(table.rows[i].cells[0].innerHTML);
+        }
+        document.getElementById("total").value=Total.toFixed(2);
+        console.log("Total is :" + Total);
+<!--        alert(Total);-->
+    }
+</script>
+
+{% endblock %}

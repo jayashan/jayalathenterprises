@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!--<h2>{{items.first.product}}</h2>-->
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="myform">
+        <div class="row g-3">
+            <label class="form-label">Order NO: </label>
+            <h2><label id="order_no">{{order.order_no}}</label></h2>
+            <div class="form-group col-md-6">
+                <label>Invoice NO</label>
+                <input type="number" class="form-control" id="invoice_no">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Date</label>
+                <input type="date" class="form-control" id="date">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Vehicle No</label>
+                <input type="text" class="form-control" id="vehicle_no">
+            </div>
+        </div>
+        </br>
+        <div class="row g-3">
+            <label>Order Items</label>
+            <div class="form-group col-md-6">
+                <div class="input-group">
+                  <select class="form-select" id="itemddl" aria-label="Example select with button addon">
+                    <option selected>Choose...</option>
+                      {% for items in items.all %}
+                        <option value="{{items.product}}">{{items.product}}</option>
+                      {% endfor %}
+                  </select>
+<!--                    </br>-->
+<!--                    <select class="form-select" id="productddl" aria-label="Example select with button addon">-->
+<!--                        <option selected>Choose...</option>-->
+<!--                      {% for products in products %}-->
+<!--                        <option value="{{products.product_id}}">{{products.price}}</option>-->
+<!--                      {% endfor %}-->
+<!--                    </select>-->
+                  <button class="btn btn-primary" type="button">ADD</button>
+                </div>
+<!--                    <div id="myDiv">-->
+<!--                        <table class="table table-hover">-->
+<!--                            <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>col1</th>-->
+<!--                                    <th>col2</th>-->
+<!--                                    <th>col3</th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            {% for items in items.all %}-->
+<!--                                <tr>-->
+<!--                                    {% if items.Is_received == 0 %}-->
+<!--                                    <td><input data-qty="{{items.qty}}" id="check" class="form-check-input me-1" type="checkbox"  name="choices[]" value="{{items.product}}" aria-label="...">-->
+<!--                                {{items.product}}</td>-->
+<!--                                    <td> {{items.qty}}</td>-->
+<!--                                    <td> {{items.products}}</td>-->
+<!--                                    {% endif %}-->
+<!--                                </tr>-->
+<!--                            {% endfor %}-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--&lt;!&ndash;                        <ul class="list-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <li class="list-group-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                              {% for items in items.all %}&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </br>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <input data-qty="{{items.qty}}" class="form-check-input me-1" type="checkbox"  name="choices[]" value="{{items.product}}" aria-label="...">&ndash;&gt;-->
+<!--&lt;!&ndash;                                {{items.product}}&ndash;&gt;-->
+<!--&lt;!&ndash;                                {{items.qty}}&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </br>&ndash;&gt;-->
+<!--&lt;!&ndash;                              {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;                          </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </ul>&ndash;&gt;-->
+<!--                    </div>-->
+                    <ul id="selected-seats"></ul>
+                    <div class="p-2 bg-light border">
+                        <button type="button" id="save_all_btn" class="btn btn-primary">Submit</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+   var selections={};
+   var checkboxElems=document.querySelectorAll("input[type='checkbox']");
+   var seatsElem = document.getElementById("selected-seats");
+
+<!--   for (var i = 0; i < checkboxElems.length; i++) {-->
+<!--        checkboxElems[i].addEventListener("click", displayCheck);-->
+<!--    }-->
+
+<!--    function displayCheck(e) {-->
+<!--      if (e.target.checked) {-->
+<!--        selections[e.target.id] = {-->
+<!--          name: e.target.name,-->
+<!--          value: e.target.value-->
+<!--        };-->
+<!--      }-->
+<!--      else {-->
+<!--        delete selections[e.target.id];-->
+<!--      }-->
+
+<!--      var result = [];-->
+<!--      var total = 0;-->
+
+<!--      for (var key in selections) {-->
+<!--        var listItem = "<li>" + selections[key].name + " " +-->
+<!--                       selections[key].value + "</li>";-->
+<!--        result.push(listItem);-->
+<!--        total += parseInt(selections[key].value.substring(1));-->
+<!--      }-->
+
+
+<!--      seatsElem.innerHTML = result.join("");-->
+<!--    }-->
+
+<!--    $('#myDiv').change(function() {-->
+<!--      var values = [];-->
+<!--      {-->
+<!--        $('#myDiv :checked').each(function() {-->
+<!--          //if(values.indexOf($(this).val()) === -1){-->
+<!--          values.push($(this).val());-->
+<!--          // }-->
+<!--        });-->
+<!--        console.log(values);-->
+<!--      }-->
+<!--    });-->
+
+    $("#save_all_btn").click(function(){
+<!--        var values = [];-->
+
+<!--        $('#myDiv :checked').each(function() {-->
+<!--          //if(values.indexOf($(this).val()) === -1){-->
+<!--            values.push($(this).val());-->
+
+<!--          // }-->
+<!--        });-->
+<!--        console.log(values);-->
+
+        var selectedRows = [];
+        $('table input:checkbox:checked').each(function() {
+          selectedRows.push($(this).closest('tr'))
+        });
+
+        console.log(selectedRows);
+
+    });
+
+
+</script>
+
+
+{% endblock %}

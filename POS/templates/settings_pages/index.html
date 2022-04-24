@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{%block scripts%}
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 34px;
+      }
+
+      .switch input {display:none;}
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ca2222;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2ab934;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(68px);
+        -ms-transform: translateX(68px);
+        transform: translateX(68px);
+      }
+
+      .on
+      {
+        display: none;
+      }
+
+      .on, .off
+      {
+        color: white;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        font-size: 10px;
+        font-family: Verdana, sans-serif;
+      }
+
+      input:checked+ .slider .on
+      {display: block;}
+
+      input:checked + .slider .off
+      {display: none;}
+
+</style>
+<script>
+// jquery function
+$(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{%for data in stock%}'{{data.product}}',{%endfor%}],
+                datasets: [{
+                    label: 'STOCK LEVELS',
+                    data: [{%for data in stock%}{{data.qty}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+});
+    });
+</script>
+{%endblock scripts%}
+
+{% block content %}
+<h1>{{header}}</h1>
+      {% include 'navibar.html' %}
+      <div class="container">
+          <div class="myform">
+              <canvas id="myChart" width="600" height="300"></canvas>
+          </div>
+          <div>
+              {% for i in shift %}
+<!--                  <label class="form-check-label">{{i}}</label>-->
+<!--                  <label class="switch">-->
+<!--                    <input type="checkbox" id="checkbox1">-->
+<!--                  <div class="slider round">-->
+<!--                    <span class="on">ON</span>-->
+<!--                    <span class="off">OFF</span>-->
+<!--                  </div>-->
+<!--                  </label>-->
+<!--                  </br>-->
+<!--              </div>-->
+              {% if i.Is_On%}
+                <a href="{%url 'shift_details' i.id %}" class="btn btn-success" role="button">{{i.shift_Name}}</a>
+              {%endif%}
+<!--                    <a href="{%url 'shift_details' i.shift_Name %}">{{i.shift_Name}}</a>-->
+                    </br>
+                    </br>
+              {% endfor %}
+<!--              <div class="collapse" id="station">-->
+<!--                  <form>-->
+<!--                      <label>aaa</label>-->
+<!--                    <input type="text">-->
+<!--                  </form>-->
+          </div>
+      </div>
+
+<script>
+<!--  $(function() {-->
+<!--    $('input:checkbox').change(function() {-->
+<!--      document.getElementById("station").style.display = "block";-->
+<!--    })-->
+<!--  })-->
+</script>
+{% endblock %}
+
+
+

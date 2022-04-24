@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="myform">
+        <legend>Add Shifts</legend>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Station Name</label>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="Station_Name">SELECT</label>
+                    <select class="form-select" id="Station_Name"  name="Station_Name" onchange="">
+                        <option disabled="true" selected>-----------</option>
+                            {% for product in product %}
+                                {% for i in product.station_fuel.all %}
+                                    {% if not i.Is_On%}
+                                        <option data-fuel="{{i.Station_Fuel}}" data-meter="{{i.meter}}" data-code="{{product.product_id}}">{{i.Station_Name}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Fuel</label>
+                <input type="text" class="form-control"  id="Fuel_Type" name="Fuel_Type" placeholder="Fuel_Type" readonly>
+            </div>
+            <div class="mb-3">
+                <label>Fuel Code</label>
+                <input type="text" class="form-control"  id="FuelCode" name="FuelCode" placeholder="Fuel_Code" readonly>
+            </div>
+            <div class="mb-3">
+                <label>Current Meter</label>
+                <input type="number" class="form-control" id="meter" name="meter" placeholder="0.00" readonly>
+            </div>
+            <div class="mb-3">
+                <label>Pump Operator</label>
+                <input type="text" class="form-control" id="Pump_Operator" name="Pump_Operator" placeholder="Pump_Operator" required>
+            </div>
+            <div class="mb-3">
+                <label>Operator On</label>
+                <input type="text" class="form-control" id="Operator_On" name="Operator_On" placeholder="Operator_On" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+        {% endif %}
+    </div>
+</div>
+<script>
+    document.getElementById("Station_Name").addEventListener('change',function(){
+        var fuel;
+        var meter;
+        var code;
+
+
+        var selected=this.options[this.selectedIndex];
+
+
+        fuel=selected.dataset.fuel;
+        meter=selected.dataset.meter;
+        code=selected.dataset.code;
+
+        console.log(fuel);
+        console.log(meter);
+        console.log(code);
+
+
+        document.getElementById("Fuel_Type").value=fuel;
+        document.getElementById("meter").value=meter;
+        document.getElementById("FuelCode").value=code;
+
+
+
+
+    });
+</script>
+{% endblock %}

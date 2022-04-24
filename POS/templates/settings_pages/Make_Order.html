@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="myform">
+        <legend>Make Your Order</legend>
+        <form id="order_form">
+            <div class="row g-3">
+                <div class="form-group col-md-6">
+                    <label>Order NO</label>
+                    <input type="number" class="form-control" id="order_no">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Date</label>
+                    <input type="date" class="form-control" id="date">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Made By</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Order Option</label>
+                    <select class="form-select" id="option">
+                        <OPTION>TP</OPTION>
+                        <OPTION>POST</OPTION>
+                        <OPTION>FAX</OPTION>
+                    </select>
+                </div>
+            </div>
+            </br>
+            <div class="row g-3">
+                <div class="p-2 bg-light border">
+                    <p class="fw-light">Product Details</p>
+                    </br>
+                    <div class="form-group col-md-6">
+                        <label>Product Name</label>
+                        <select class="form-select" id="product_name">
+                            <option disabled="true" selected>-----------</option>
+                            {% for products in products %}
+                            <option data-product_name="{{products.product_name}}">{{products.product_id}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label  class="fw-light" id="lbl_product_name"></label>
+                    <div class="form-group col-md-3">
+                        <label>Qty</label>
+                        <input type="number" class="form-control" id="qty">
+                    </div>
+                    </br>
+                    <div class="d-grip gap-3">
+                        <div class="p-2 bg-light border">
+                            <button type="button" id="Add" class="btn btn-primary" onclick="Add_Items_To_Table();">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+            </br>
+            <div class="row g-3">
+                <table class="table table-bordered table-condensed table-striped" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Qty</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-grip gap-3">
+                <div class="p-2 bg-light border">
+                    <button type="button" id="save_all_btn" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    var nextId=1;
+
+    document.getElementById("product_name").addEventListener('change',function(){
+        var selected=this.options[this.selectedIndex];
+
+        let lbl_ProductName=selected.dataset.product_name;
+
+        document.getElementById("lbl_product_name").innerHTML=lbl_ProductName;
+    });
+
+    function Add_Items_To_Table(){
+        checkTable();
+        formClear();
+
+    }
+
+    function checkTable(){
+        if($("#productTable tbody").length==0){
+            $("#productTable").append("<tbody id='productTableBody'></tbody>");
+        }
+        $("#productTable tbody").append(
+            productBuildTableRow(nextId));
+
+
+
+        nextId +=1;
+    }
+
+    function productBuildTableRow(id){
+        var ret=
+        "<tr>"+
+            "<td>"+
+            "</td>"+
+            "<td>"+$("#product_name").val()+"</td>"+
+            "<td>"+$("#qty").val()+"</td>"+
+            "<td>"+
+                "<button type='button'"+
+                    "onclick=''"+
+                    "class='btn btn-danger'"+
+                    "data-id='"+ id +"'>"+
+                    "-"+
+                "</button>"+
+            "</td>"+
+        "</tr>"
+        return ret;
+
+    }
+
+    function formClear(){
+        $("#product_name").val("");
+        $("#qty").val("");
+        document.getElementById("lbl_product_name").innerHTML=""
+    }
+
+    $("#save_all_btn").click(function(){
+
+      var json_data=[];
+
+
+      var order_no=$("#order_no").val();
+      var date=$("#date").val();
+      var user=$("#name").val();
+      var option=$("#option").val();
+
+      console.log(order_no);
+      console.log(date);
+      console.log(user);
+      console.log(option);
+
+      $("tbody tr").each(function(){
+        var product_name=$(this).children().eq(1).text()
+        var qty=$(this).children().eq(2).text()
+
+        console.log(product_name);
+        console.log(qty);
+
+        var single_data={"product_name":product_name,"qty":qty}
+        json_data.push(single_data);
+      });
+      console.log(json_data);
+
+      var string_data=JSON.stringify(json_data)
+
+      $.ajax({
+        url:'{% url 'save_orders' %}',
+        type:'POST',
+        data:{
+            data:string_data,
+            order_no:$("#order_no").val(),
+            date:$("#date").val(),
+            user:$("#name").val(),
+            option:$("#option").val()
+        }
+      })
+      .done(function(response){
+            alert("YOUR ORDER IS SUCCESSFULLY SAVED ");
+            $("#productTableBody").html("");
+            $('#order_form').trigger('reset');
+
+      })
+      .fail(function(){
+
+
+      })
+
+    });
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!--<h2>{{items.first.product}}</h2>-->
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="myform">
+        <form id="invoice-form">
+            <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label>Order NO</label>
+                <input type="number" class="form-control" id="order_no">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Supplier Name</label>
+                <select class="form-select" id="supplier">
+                    <option>CPC</option>
+                    <option>Litro</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Invoice NO</label>
+                <input type="number" class="form-control" id="invoice_no">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Date</label>
+                <input type="date" class="form-control" id="date">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Vehicle No</label>
+                <input type="text" class="form-control" id="vehicle_no">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Invoice Type</label>
+                <select class="form-select" id="type">
+                    <option>CASH</option>
+                    <option>CREDIT</option>
+                    <option>DEBIT</option>
+                </select>
+            </div>
+        </div>
+        </form>
+        </br>
+        <div class="p-2 bg-light border">
+            <div class="row g-3">
+                <div class="form-group col-md-3">
+                        <label>Invoice Items</label>
+                        <select class="form-select" id="product_name" aria-label="Example select with button addon">
+                            <option selected>Choose...</option>
+                            {% for product in product %}
+                                <option data-unit_price="{{product.price}}" data-evoporation_amount="{{product.Evap_amount}}" data-discount="{{product.discount}}">{{product.product_id}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                <div class="form-group col-md-3">
+                        <label>Qty</label>
+                        <input type="text" class="form-control" id="qty" oninput="GetDiscount()">
+                    </div>
+                <label id="lbl_discount" hidden></label>
+                <label id="lbl_unit_price" hidden></label>
+                <label id="lbl_Evaporation_amount" hidden></label>
+                <label id="ext_amount" hidden></label>
+                <label id="lbl_discount_amount" hidden></label>
+                <label id="value" hidden></label>
+
+            </div>
+        </div>
+        </br>
+        <div class="d-grip gap-3">
+            <button type="button" id="Add" class="btn btn-primary" onclick="Add_Items_To_Table();">Add</button>
+        </div>
+        </br>
+        <div class="row g-3">
+            <table class="table table-bordered table-condensed table-striped" id="productTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Description</th>
+                        <th>qty</th>
+                        <th>rate</th>
+                        <th>Extended Amount</th>
+                        <th>Discount %</th>
+                        <th>Net Amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+
+                </tbody>
+
+            </table>
+            <p class="fw-light">Total Invoice Amount :     <label id="lbl_total_invoice">0:00</label></p>
+        </div>
+        <div class="p-2 bg-light border">
+            <button type="button" id="save_all_btn" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var nextId=1;
+
+    document.getElementById("product_name").addEventListener('change',function(){
+        let unit_price=0.00;
+        let Evaporation_amount=0.00;
+
+        var selected=this.options[this.selectedIndex];
+
+        unit_price=selected.dataset.unit_price;
+        discount=selected.dataset.discount;
+        Evaporation_amount=selected.dataset.evoporation_amount;
+
+        document.getElementById("lbl_unit_price").innerHTML=unit_price;
+        document.getElementById("lbl_discount").innerHTML=discount;
+        document.getElementById("lbl_Evaporation_amount").innerHTML=Evaporation_amount;
+
+
+    });
+
+    function GetDiscount(){
+        var qty=document.getElementById("qty").value;
+        var discount=parseFloat(document.getElementById("lbl_discount").innerHTML);
+        var unit_price=parseFloat(document.getElementById("lbl_unit_price").innerHTML);
+        var Evaporation_Amount=parseFloat(document.getElementById("lbl_Evaporation_amount").innerHTML);
+
+
+
+        var Full_Discount=qty*discount;
+        var ext_amount=qty*unit_price;
+        var amount=(ext_amount-Full_Discount)-Evaporation_Amount;
+
+
+        document.getElementById("ext_amount").innerHTML=ext_amount.toFixed(2);
+        document.getElementById("lbl_discount_amount").innerHTML=Full_Discount.toFixed(2);
+        document.getElementById("value").innerHTML=amount.toFixed(2);
+
+
+    }
+
+    function Add_Items_To_Table(){
+        checkTable();
+        getTotal();
+        formClear();
+
+
+    }
+
+    function checkTable(){
+        if($("#productTable tbody").length==0){
+            $("#productTable").append("<tbody id='productTableBody'></tbody>");
+
+        }
+
+        $("#productTable tbody").append(
+            productBuildTableRow(nextId));
+
+        nextId +=1;
+    }
+
+    function productBuildTableRow(id){
+        var ret=
+        "<tr>"+
+            "<td>"+
+            "</td>"+
+            "<td>"+$("#product_name").val()+"</td>"+
+            "<td>"+$("#qty").val()+"</td>"+
+            "<td>"+$("#lbl_unit_price").text()+"</td>"+
+            "<td>"+$("#ext_amount").text()+"</td>"+
+            "<td>"+$("#lbl_discount_amount").text()+"</td>"+
+            "<td>"+$("#value").text()+"</td>"+
+            "<td>"+
+                "<button type='button'"+
+                    "onclick='productDelete(this);'"+
+                    "class='btn btn-danger'"+
+                    "data-id='"+id+"'>"+
+                    "-"+
+                "</button>"+
+            "</td>"+
+
+        "</tr>"
+
+        return ret;
+
+    }
+
+
+    function productDelete(id){
+        $(id).parents("tr").remove();
+        getTotal();
+
+    }
+
+    function formClear(){
+        $("#product_name").val("");
+        $("#qty").val("");
+
+
+        document.getElementById("ext_amount").innerHTML="";
+        document.getElementById("lbl_discount_amount").innerHTML="";
+        document.getElementById("value").innerHTML="";
+        document.getElementById("lbl_discount").innerHTML="";
+        document.getElementById("lbl_unit_price").innerHTML="";
+
+    }
+
+    function getTotal(){
+        var table=document.getElementById("productTable");
+        let TotalInvoice=0.00;
+
+        for(var i=0;i< table.rows.length;i++){
+            TotalInvoice+=isNaN(table.rows[i].cells[6].innerHTML) ?0:parseFloat(table.rows[i].cells[6].innerHTML);
+
+        }
+        document.getElementById("lbl_total_invoice").innerHTML=TotalInvoice.toFixed(2);
+    }
+
+    $("#save_all_btn").click(function(){
+
+        var json_data=[];
+
+        var OrderNo=$("#order_no").val();
+        var supplier=$("#supplier").val();
+        var InvoiceNo=$("#invoice_no").val();
+        var date=$("#date").val();
+        var VehicleNo=$("#vehicle_no").val();
+        var type=$("#type").val();
+        var TotalInvoice=$("#lbl_total_invoice").text();
+
+        console.log(OrderNo);
+        console.log(InvoiceNo);
+        console.log(date);
+        console.log(VehicleNo);
+        console.log(TotalInvoice);
+
+        $("tbody tr").each(function(){
+            var ProductName=$(this).children().eq(1).text();
+            var Qty=$(this).children().eq(2).text();
+            var rate=$(this).children().eq(3).text();
+            var ExtAmount=$(this).children().eq(4).text();
+            var Discount=$(this).children().eq(5).text();
+            var NetAmount=$(this).children().eq(6).text();
+
+
+            console.log(ProductName);
+            console.log(Qty);
+            console.log(rate);
+            console.log(ExtAmount);
+            console.log(Discount);
+            console.log(NetAmount);
+
+            var single_data={"ProductName":ProductName,"Qty":Qty,"rate":rate,"ExtAmount":ExtAmount,"Discount":Discount,"NetAmount":NetAmount};
+            json_data.push(single_data);
+
+        });
+
+        console.log(json_data);
+        var string_data=JSON.stringify(json_data)
+
+        $.ajax({
+            url:'{% url 'save_invoices' %}',
+            type:'POST',
+            data:{
+                data:string_data,
+                OrderNo:$("#order_no").val(),
+                supplier:$("#supplier").val(),
+                InvoiceNo:$("#invoice_no").val(),
+                date:$("#date").val(),
+                VehicleNo:$("#vehicle_no").val(),
+                type:$("#type").val(),
+                TotalInvoice:$("#lbl_total_invoice").text()
+            }
+        })
+       .done(function(response){
+            alert("YOUR INVOICE IS SUCCESSFULLY SAVED...!");
+            $("#productTableBody").html("");
+            $('#invoice-form').trigger('reset');
+            document.getElementById("lbl_total_invoice").innerHTML="";
+
+
+       })
+       .fail(function(response){
+
+
+
+       })
+    });
+
+
+
+
+</script>
+
+
+{% endblock %}

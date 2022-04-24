@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import django_heroku
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-)i-9q-hh8t^lakhh01-5d5*a%9aqjkl!$v^*2=o-_t*=+^3l%p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jayalath2021.herokuapp.com','localhost','127.0.0.1:8000']
+ALLOWED_HOSTS = ['jayalathenterprises.herokuapp.com','localhost','127.0.0.1:8000']
 
 
 # Application definition
@@ -154,4 +155,4 @@ django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_TEMPLATE_PACK='bootstrap'
+CRISPY_TEMPLATE_PACK='bootstrap4'

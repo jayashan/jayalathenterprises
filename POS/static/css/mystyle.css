@@ -1,34 +1,26 @@
-.mymenu-bar{
-    background-color: #F5F5F5;
-    color: white;
-    display: inline;
-    padding: 10px;
-    position: fixed;
-    height: 80%;
-    bottom: 70px;
-    left: -80px;
-    z-index: 3000;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-
-}
-
-.mymenu-bar:hover{
-    left: 0px;
-    -webkit-transition: all 0.5s ease;
-     -moz-transition: all 0.5s ease;
-       -o-transition: all 0.5s ease;
-      -ms-transition: all 0.5s ease;
-          transition: all 0.5s ease;
-}
-
-
 .myform{
 	box-shadow: 10px 10px 10px;
 	box-shadow: 12px 12px 12px #2e6da4;
 	border: 1px solid #2e6da4;
 	padding: 50px;
 	padding-bottom: 20px;
-	margin-top: 25px;
+	margin-top: 80px;
+
+}
+
+
+
+.chart{
+
+
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  /* Center vertically and horizontally */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
+
 
 }

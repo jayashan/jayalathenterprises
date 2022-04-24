@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>{{title}}</h1>
+<!--{{form}}-->
+</br>
+
+<form method="get">
+ {{myFilter.form.order_no}}
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+
+</form>
+
+
+{% for instances in queryset %}
+    </br>
+    {{instances.order_no}}
+    {{instances.date_of_order}}
+    {{instances.made_by}}
+    </br>
+{% endfor %}
+
+<span>-------------------------------</span>
+{% for items in order %}
+
+<h1>{{items.order_no}}</h1>
+<h2>{{items.date_of_order}}</h2>
+
+
+{{ items.order_item_set.first.order_no }}
+{{ items.order_item_set.first.product_id }}
+</br>
+{% endfor %}
+
+<span>-------------------------------</span>
+</br>
+
+{% for order in order %}
+    {{order.order_no}}
+    <select>
+        <option>---------</option>
+        {% for i in order.items.all %}
+
+        <option>{{i.product}}</option>
+
+        {% endfor %}
+        </option>
+    </select>
+{% endfor %}
+
+
+
+
+
+{% endblock %}

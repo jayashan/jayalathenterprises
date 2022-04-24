@@ -65,7 +65,7 @@
                 <tbody>
                     {% for instances in queryset%}
                     <tr>
-                        <td>{{instances.Bill_number}}</td>
+                        <td><a href="{%url 'print-customer-view' instances.pk%}"><h8>{{instances.Bill_number}}</h8></a></td>
                         <td>{{instances.Bill_date}}</td>
                         <td>{{instances.name}}</td>
                         <td>{{instances.sub_total}}</td>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from.models import Bill,Billing_Detail,Product,Customer,Vehicle_Number
+from.models import *
 
 # Register your models here.
 
@@ -21,3 +21,20 @@ admin.site.register(Billing_Detail,Billing_Detail_Admin)
 admin.site.register(Product)
 admin.site.register(Customer)
 admin.site.register(Vehicle_Number)
+admin.site.register(Stock)
+admin.site.register(Order)
+admin.site.register(Order_Item)
+admin.site.register(Invoice)
+admin.site.register(Invoice_Item)
+admin.site.register(Supplier)
+admin.site.register(Station)
+admin.site.register(Shift)
+admin.site.register(Shift_Detail)
+admin.site.register(Shift_Money)
+
+
+
+
+
+
+
