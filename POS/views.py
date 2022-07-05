@@ -1,4 +1,4 @@
-
+import decimal
 from decimal import Decimal
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, request, JsonResponse, HttpResponseRedirect
@@ -603,6 +603,7 @@ def shift_details(request,*args,**kwargs):
     s=Shift_Detail()
     shift = get_object_or_404(Shift, id=pk)
     price=0
+    meter=0.00
     shift_money=Shift_Money.objects.filter(shift_id=shift.id)
     form=Shift_Money_Form(request.POST or None)
     shift_id=shift.id
@@ -622,6 +623,7 @@ def shift_details(request,*args,**kwargs):
             product=request.POST.get('product')
             pre_reading = request.POST.get('pre_reading')
             end_reading = request.POST.get('end_reading')
+
             used = request.POST.get('used')
             worker = request.POST.get('worker')
             operator_on = request.POST.get('operator_on')
@@ -635,7 +637,7 @@ def shift_details(request,*args,**kwargs):
             print('shift name -'+shift_name)
             print('product -'+product)
             print('pre reading -'+ pre_reading)
-            print('end reading -'+end_reading)
+            print('end reading -'+str(end_reading))
             print('used -'+used)
             print('worker -'+worker)
             print('operator_on -'+operator_on)
@@ -660,54 +662,18 @@ def shift_details(request,*args,**kwargs):
             s.shift_Name = shift_name
             s.product_id=product
             s.PreReading = pre_reading
-            s.EndReading = end_reading
+            s.EndReading =end_reading
             s.used=0.00
             s.worker = worker
             s.Operator_ON = operator_on
             s.Operator_OFF = operator_off
             s.Is_Using = False
-                    # shift.Pre_Money = 0.00
-                    # shift.Profit = 0.00
-                    # shift.Total = 0.00
             s.Profit=price
 
-            print (price)
+            print ('price' + price)
             shift.save()
             s.save()
             return redirect('/settings_home')
-            #
-            #
-            # elif shift.Is_On == False:
-            #         shift.worker = worker
-            #         shift.PreReading=pre_reading
-            #         shift.Operator_ON=operator_on
-            #         shift.Operator_OFF=''
-            #         shift.Is_On = True
-            #
-            #         s.Shift_ID_id = shift_id
-            #         s.shift_Name = shift_name
-            #         s.product_id = product
-            #         s.PreReading = pre_reading
-            #         s.EndReading = end_reading
-            #         s.used = 0.00
-            #         s.worker = worker
-            #         s.Operator_ON = operator_on
-            #         s.Operator_OFF = operator_off
-            #         s.Is_Using = True
-            #         # shift.Pre_Money = 0.00
-            #         # shift.Profit = 0.00
-            #         # shift.Total = 0.00
-            #
-            #
-            #         shift.save()
-            #         s.save()
-            #
-            #
-            #         for n in unit_price:
-            #             price = n
-            #
-            #         print(price)
-            #         # return redirect('/settings_home')
 
     context = {
         'shift': shift,

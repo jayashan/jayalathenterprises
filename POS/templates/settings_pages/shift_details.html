@@ -4,6 +4,42 @@
 <div class="container" xmlns="http://www.w3.org/1999/html" onload="codeAddress();">
     <div class="myform">
         <legend>Shift Details</legend>
+        <div class="card">
+                    <h5 class="card-header">Shift Money</h5>
+                    <div class="card-body">
+                        <div class="col-md-6">
+                            <div class="input-group mb-6" id="shift_money">
+        <!--                          <input type="number" class="form-control" placeholder="Money" aria-label="Money" aria-describedby="basic-addon2">-->
+                                <form  class="row g-3" name="shift_money" method="POST">
+                                    {% csrf_token %}
+                                    <div style="display:none">
+                                        {{form.shift}}
+                                    </div>
+                                    {{form.amount}}
+                                  <div class="col-auto">
+                                    <button class="btn btn-primary mb-3"  name="btn_shift_money" type="submit" id="btn_shift_money">ADD</button>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <table class="table table-bordered" id="money_table">
+                <thead>
+                    <th>Amount</th>
+                    <th>Date/Time</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for n in shift_money%}
+                    <tr>
+                        <td>{{n.amount}}</td>
+                        <td>{{n.date}}</td>
+                        <td><a class="btn btn-danger" href="{% url 'Delete_Shift_Money' n.id %}" role="button">-</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         <form  name="shift_details" method="POST" id="shift_details">
             <div class="row g-3">
                 {% csrf_token %}
@@ -24,9 +60,11 @@
                         <input class="form-control" type="text" name="pre_reading" value="{{shift.PreReading}}">
                     {%endif%}
                 </div>
-                <div class="col-12">
-                    <label class="form-label">End-Reading</label>
-                    <input class="form-control"  type="text" name="end_reading" placeholder="0.00">
+                <div class="col-md-6">
+                    <label for="validationServer03" class="form-label">End-Reading</label>
+                    <input type="text" class="form-control is-invalid" id="validationServer03"  name="end_reading" aria-describedby="validationServer03Feedback" required>
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                    </div>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Used</label>
@@ -56,42 +94,6 @@
                         <input class="form-control" name="operator_off" type="text" value="{{shift.Operator_OFF}}" readonly>
                     {%endif%}
                 </div>
-                <div class="card">
-                    <h5 class="card-header">Shift Money</h5>
-                    <div class="card-body">
-                        <div class="col-md-6">
-                            <div class="input-group mb-6" id="shift_money">
-        <!--                          <input type="number" class="form-control" placeholder="Money" aria-label="Money" aria-describedby="basic-addon2">-->
-                                <form name="shift_money" method="POST">
-                                    {% csrf_token %}
-                                    <div style="display:none">
-                                        {{form.shift}}
-                                    </div>
-                                    {{form.amount}}
-                                  <div class="input-group-append">
-                                    <button class="btn btn-outline-primary"  name="btn_shift_money" type="submit" id="btn_shift_money">ADD</button>
-                                  </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-bordered" id="money_table">
-                <thead>
-                    <th>Amount</th>
-                    <th>Date/Time</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    {% for n in shift_money%}
-                    <tr>
-                        <td>{{n.amount}}</td>
-                        <td>{{n.date}}</td>
-                        <td><a class="btn btn-danger" href="{% url 'Delete_Shift_Money' n.id %}" role="button">-</a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
                 <div class="col-md-6">
                     <label class="form-label">Profit</label>
                     <input class="form-control" type="text" name="profit" value="" readonly>

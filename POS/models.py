@@ -147,7 +147,7 @@ class Station(models.Model):
     Station_Name=models.CharField(primary_key=True,max_length=50,null=False)
     Station_Fuel=models.ForeignKey(Product,on_delete=models.DO_NOTHING,related_name='station_fuel')
     Is_On=models.BooleanField(default=False)
-    meter = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    meter = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     Station_Date = models.DateTimeField(auto_now=True, null=False)
 
 
@@ -161,8 +161,8 @@ class Shift(models.Model):
     shift_Name = models.ForeignKey(Station, on_delete=models.DO_NOTHING)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, null=True, blank=True,related_name='shift_product')
     worker = models.CharField(max_length=50, null=True, blank=True)
-    PreReading = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    EndReading = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    PreReading = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    EndReading = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     Operator_ON = models.CharField(max_length=50, null=True, blank=True)
     Operator_OFF = models.CharField(max_length=50, null=True, blank=True)
     Is_On = models.BooleanField(default=True)
@@ -176,19 +176,19 @@ class Shift_Detail(models.Model):
     Shift_ID=models.ForeignKey(Shift,related_name='shift',on_delete=models.CASCADE)
     shift_Name=models.CharField(max_length=50,null=False,blank=True)
     product=models.ForeignKey(Product,on_delete=models.DO_NOTHING,null=True,blank=True)
-    PreReading=models.DecimalField(max_digits=10,decimal_places=2,default=0)
-    EndReading=models.DecimalField(max_digits=10,decimal_places=2,default=0)
-    used=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    PreReading=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    EndReading=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    used=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
     worker=models.CharField(max_length=50)
     Operator_ON=models.CharField(max_length=50,null=False)
     Operator_OFF=models.CharField(max_length=50,null=True,blank=True)
     Shift_On_Date=models.DateTimeField(auto_now=True, null=False)
     Shift_Off_Date=models.DateTimeField(auto_now=True, null=False)
     Is_Using=models.BooleanField(default=True)
-    Pre_Money=models.DecimalField(max_digits=10,decimal_places=2,default=0)
-    Profit=models.DecimalField(max_digits=10,decimal_places=2,default=0)
-    Total=models.DecimalField(max_digits=10,decimal_places=2,default=0)
-    Short_money=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    Pre_Money=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    Profit=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    Total=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
+    Short_money=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
 
     def __str__(self):
@@ -198,7 +198,7 @@ class Shift_Detail(models.Model):
 class Shift_Money(models.Model):
     id=models.BigAutoField(primary_key=True)
     shift=models.ForeignKey(Shift,on_delete=models.CASCADE,default=0)
-    amount=models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    amount=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
     date=models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):
