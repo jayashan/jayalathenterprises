@@ -57,3 +57,5 @@ class Station_Form(forms.ModelForm):
     class Meta:
         model=Station
         fields=['Station_Name','Station_Fuel','meter']
+
+

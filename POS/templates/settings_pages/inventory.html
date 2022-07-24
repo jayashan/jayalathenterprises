@@ -48,21 +48,20 @@
                         <select class="form-select" id="product_name" aria-label="Example select with button addon">
                             <option selected>Choose...</option>
                             {% for product in product %}
-                                <option data-unit_price="{{product.price}}" data-evoporation_amount="{{product.Evap_amount}}" data-discount="{{product.discount}}">{{product.product_id}}</option>
+                                <option data-unit_price="{{product.price}}" data-evaporation="{{product.evaporation}}" data-discount="{{product.discount}}">{{product.product_id}}</option>
                             {% endfor %}
                         </select>
                     </div>
                 <div class="form-group col-md-3">
                         <label>Qty</label>
                         <input type="text" class="form-control" id="qty" oninput="GetDiscount()">
-                    </div>
+                </div>
                 <label id="lbl_discount" hidden></label>
                 <label id="lbl_unit_price" hidden></label>
                 <label id="lbl_Evaporation_amount" hidden></label>
                 <label id="ext_amount" hidden></label>
                 <label id="lbl_discount_amount" hidden></label>
                 <label id="value" hidden></label>
-
             </div>
         </div>
         </br>
@@ -102,13 +101,13 @@
 
     document.getElementById("product_name").addEventListener('change',function(){
         let unit_price=0.00;
-        let Evaporation_amount=0.00;
+        let evaporation=0.00;
 
         var selected=this.options[this.selectedIndex];
 
         unit_price=selected.dataset.unit_price;
         discount=selected.dataset.discount;
-        Evaporation_amount=selected.dataset.evoporation_amount;
+        Evaporation_amount=selected.dataset.evaporation;
 
         document.getElementById("lbl_unit_price").innerHTML=unit_price;
         document.getElementById("lbl_discount").innerHTML=discount;

@@ -74,7 +74,9 @@ urlpatterns = [
     path('Delete_Shift_Money/<str:pk>',views.Delete_Shift_Money,name='Delete_Shift_Money'),
 
 
-    path('Add_Station/',views.Add_Station,name='Add_Station')
+    path('Add_Station/',views.Add_Station,name='Add_Station'),
+    path('login',views.login,name='login'),
+    path('logout',views.logout,name='logout')
 
 
 ]

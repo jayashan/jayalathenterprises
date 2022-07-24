@@ -31,19 +31,46 @@ from xhtml2pdf import pisa
 
 
 import json
+from django.contrib.auth.models import User,auth
 
 # Create your views here.
 def home(request):
     # return HttpResponse("Jayalath_Enterprises")
     title="Jayalath Enterprises"
     header="Jayalath Enterprises Home Page"
-
+    product=Product.objects.all()
+    traffic=Product.traffic
 
     context={
         "title":title,
         "header":header,
+        'product':product,
+        'traffic':traffic,
     }
     return render(request,"index.html",context)
+
+def login(request):
+    title='login'
+
+    if request.method=='POST':
+        username=request.POST['username']
+        password=request.POST['password']
+
+        user=auth.authenticate(username=username,password=password)
+
+        if user is not None:
+            auth.login(request,user)
+            return redirect('/settings_home')
+        else:
+            messages.info(request,'invalid credentials')
+            return redirect('login')
+
+    else:
+        return render(request, 'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
 
 def add_invoice(request):
     title='Add Invoices'
@@ -350,6 +377,7 @@ def settings_home(request):
     orders = Order.objects.all()
     stock=Stock.objects.all()
     shift=Shift.objects.all()
+
 
     context={
         'title':title,

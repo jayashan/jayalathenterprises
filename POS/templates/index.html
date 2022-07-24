@@ -1,6 +1,47 @@
-
 {% extends 'base.html' %}
 {% block content %}
+
+<style>
+        .slider {
+            position:absolute;
+            width:100%;
+            height:100%
+            left:0;
+            top:0;
+            background-size:cover;
+            background-position:center;
+        }
+        .body {
+            background: #FFFAFA;
+        }
+        section.services
+        {
+            margin-top:0px;
+
+        }
+        .swiper-container
+        {
+            height: calc(100vh - 0px);
+            margin: 0px;
+            background-color: #0000F;
+        }
+        .post-img {
+            width: 1500px;
+            height: 400px;
+        }
+        #call-to-action {
+          background: #d50202;
+          background-size: cover;
+          background-attachment: fixed;
+          padding: 80px 0;
+          text-align: center;
+          position: relative;
+          color: #fff;
+        }
+
+
+    </style>
+
 
 <!--
         ==================================================
@@ -71,35 +112,122 @@
 ==================================================
 Slider Section Start
 ================================================== -->
-<section id="hero-area" >
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <div class="block wow fadeInUp" data-wow-delay=".3s">
-
-                <!-- Slider -->
-                <section class="cd-intro">
-                    <h1 class="wow fadeInUp animated cd-headline slide" data-wow-delay=".4s" >
-                    <span>WE'LL COME BACK SOON</span><br>
-                    <span class="cd-words-wrapper">
-                        <b class="is-visible">Thank You..!</b>
-                        <b>DEVELOPER</b>
-                        <b>FATHER</b>
-                    </span>
-                    </h1>
-                    </section> <!-- cd-intro -->
-                    <!-- /.slider -->
-                    <!--
-                    <h2 class="wow fadeInUp animated" data-wow-delay=".6s" >
-                        With 10 years experience, I've occupied many roles including digital design director,<br> web designer and developer. This site showcases some of my work.
-                    </h2>
-                    <a class="btn-lines dark light wow fadeInUp animated btn btn-default btn-green hvr-bounce-to-right" data-wow-delay=".9s" href="https://themefisher.com/" target="_blank">Download More</a>
-                    -->
+<section class="single-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="post-img">
+                    <img class="img-fluid" alt="" src="static/img/slide.jpg">
                 </div>
             </div>
         </div>
     </div>
-</section><!--/#main-slider-->
+</section>
+<div class="post-content">
+    <section class="services" id="services">
+    <section id="feature">
+        <div class="container">
+            <div class="section-heading">
+                <h1 class="title wow fadeInDown" data-wow-delay=".3s">Fuel Availability</h1>
+                <p class="wow fadeInDown" data-wow-delay=".5s">
+                    PERFORMANCE AND RELIABILITY WITH CEYPETCO FUEL
+                </p>
+            </div>
+            <div class="row">
+                {% for products in product%}
+                <div class="col-sm-6 col-lg-4">
+                    <div class="media wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
+                        <div class="media-left">
+                            <!--<div class="icon">
+                                <i class="ion-ios-flask-outline"></i>
+                            </div>-->
+                        </div>
+                        <div class="media-body">
+                            <p class="font-weight-bold">{{products.product_name}}</p>
+                            <span class="badge badge-pill badge-{{products.css_color_code}}">{{products.product_id}}</span>
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>-->
+                            <div class="progress">
+                                <div class="progress-bar bg-{{products.css_color_code}}" role="progressbar" style="width:{{products.availability}}%"; aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{products.availability}}%</div>
+                            </div>
+                            <p class="font-weight-light">Fuel Availability Level</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!--
+                <div class="col-sm-6 col-lg-4">
+                    <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="600ms">
+                        <div class="media-left">
+                            <div class="icon">
+                                <i class="ion-ios-lightbulb-outline"></i>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Well documented.</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="900ms">
+                        <div class="media-left">
+                            <div class="icon">
+                                <i class="ion-ios-lightbulb-outline"></i>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Well documented.</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="1200ms">
+                        <div class="media-left">
+                            <div class="icon">
+                                <i class="ion-ios-americanfootball-outline"></i>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Free updates</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="1500ms">
+                        <div class="media-left">
+                            <div class="icon">
+                                <i class="ion-ios-keypad-outline"></i>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Solid Support</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="1800ms">
+                        <div class="media-left">
+                            <div class="icon">
+                                <i class="ion-ios-barcode-outline"></i>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Simple Installation</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+</section>
+</div>
+
 
 <!--
 
@@ -134,38 +262,38 @@ About Section Start
 </section>
 -->
 
-<!--
-==================================================
-Portfolio Section Start
-================================================== -->
-<!--<section id="works" class="works">
+
+<!--==================================================-->
+<!--Portfolio Section Start-->
+<!--================================================== -->
+<section id="works" class="works">
     <div class="container">
         <div class="section-heading">
-            <h1 class="title wow fadeInDown" data-wow-delay=".3s">Latest Works</h1>
+            <h1 class="title wow fadeInDown" data-wow-delay=".3s">OUR PRODUCTS</h1>
             <p class="wow fadeInDown" data-wow-delay=".5s">
-                Aliquam lobortis. Maecenas vestibulum mollis diam. Pellentesque auctor neque nec urna. Nulla sit amet est. Aenean posuere <br> tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus.
+                Whether you’re driving to the city or the surf, you’ll want the best fuel for every adventure. <br> All Ceypetco Fuels are formulated to protect your engine against rust corrosion and harmful deposits from the very first fill, so you can travel in confidence wherever the roads take you.
             </p>
         </div>
         <div class="row">
             <div class="col-md-4 col-sm-6">
                 <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
                     <div class="img-wrapper">
-                        <img src="images/portfolio/item-1.jpg" class="img-fluid" alt="this is a title" >
+                        <img src="static/img/products/diesel.jpeg" class="img-fluid" alt="this is a title" >
                         <div class="overlay">
                             <div class="buttons">
-                                <a rel="gallery" class="fancybox" href="images/portfolio/item-1.jpg">Demo</a>
-                                <a target="_blank" href="single-portfolio.html">Details</a>
+                                <a rel="gallery" class="fancybox" href=">Demo</a>
+                                <a target="_blank" href="">Details</a>
                             </div>
                         </div>
                     </div>
                     <figcaption>
                     <h4>
                     <a href="#">
-                        Dew Drop
+                        Petroleum
                     </a>
                     </h4>
                     <p>
-                        Redesigne UI Concept
+                        Our station is fully equipped with a range of fuel products from Petrol 95 octane , Petrol 92 Octane and Auto Diesel to Kerosene.
                     </p>
                     </figcaption>
                 </figure>
@@ -173,22 +301,22 @@ Portfolio Section Start
             <div class="col-md-4 col-sm-6">
                 <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
                     <div class="img-wrapper">
-                        <img src="images/portfolio/item-2.jpg" class="img-fluid" alt="this is a title" >
+                        <img src="static/img/products/lubricants.png" class="img-fluid" alt="this is a title" >
                         <div class="overlay">
                             <div class="buttons">
-                                <a rel="gallery" class="fancybox" href="images/portfolio/item-2.jpg">Demo</a>
-                                <a target="_blank" href="single-portfolio.html">Details</a>
+                                <a rel="gallery" class="fancybox" href="">Demo</a>
+                                <a target="_blank" href="">Details</a>
                             </div>
                         </div>
                     </div>
                     <figcaption>
                     <h4>
                     <a href="#">
-                        Bottle Mockup
+                        Lubricants
                     </a>
                     </h4>
                     <p>
-                        Lorem ipsum dolor sit.
+                        All our lubricating oils are blended in a blending plant having ISO 9001/2000 certification. Ceypetco brands of lubricants denote various lubricants types meeting the relevant international specifications American Petroleum Institute (API), MTU Friedrichshafen SmbH and European Automobile Manufacturers Association (ACEA) and fields of service both industrial and automotive applications.
                     </p>
                     </figcaption>
                 </figure>
@@ -196,102 +324,34 @@ Portfolio Section Start
             <div class="col-md-4 col-sm-6">
                 <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
                     <div class="img-wrapper">
-                        <img src="images/portfolio/item-3.jpg" class="img-fluid" alt="" >
+                        <img src="static/img/products/gas.png" class="img-fluid" alt="" >
                         <div class="overlay">
                             <div class="buttons">
-                                <a rel="gallery" class="fancybox" href="images/portfolio/item-3.jpg">Demo</a>
-                                <a target="_blank" href="single-portfolio.html">Details</a>
+                                <a rel="gallery" class="fancybox" href="">Demo</a>
+                                <a target="_blank" href="">Details</a>
                             </div>
                         </div>
                     </div>
                     <figcaption>
                     <h4>
                     <a href="#">
-                        Table Design
+                        Litro Gas
                     </a>
                     </h4>
                     <p>
-                        Lorem ipsum dolor sit amet.
-                    </p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="600ms">
-                    <div class="img-wrapper">
-                        <img src="images/portfolio/item-4.jpg" class="img-fluid" alt="" >
-                        <div class="overlay">
-                            <div class="buttons">
-                                <a rel="gallery" class="fancybox" href="images/portfolio/item-4.jpg">Demo</a>
-                                <a target="_blank" href="single-portfolio.html">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <figcaption>
-                    <h4>
-                    <a href="#">
-                        Make Up elements
-                    </a>
-                    </h4>
-                    <p>
-                        Lorem ipsum dolor.
-                    </p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="900ms">
-                    <div class="img-wrapper">
-                        <img src="images/portfolio/item-5.jpg" class="img-fluid" alt="" >
-                        <div class="overlay">
-                            <div class="buttons">
-                                <a rel="gallery" class="fancybox" href="images/portfolio/item-5.jpg">Demo</a>
-                                <a target="_blank" href="single-portfolio.html">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <figcaption>
-                    <h4>
-                    <a href="#">
-                        Shoping Bag Concept
-                    </a>
-                    </h4>
-                    <p>
-                        Lorem ipsum dolor.
-                    </p>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="1200ms">
-                    <div class="img-wrapper">
-                        <img src="images/portfolio/item-6.jpg" class="img-fluid" alt="" >
-                        <div class="overlay">
-                            <div class="buttons">
-                                <a rel="gallery" class="fancybox" href="images/portfolio/item-6.jpg">Demo</a>
-                                <a target="_blank" href="single-portfolio.html">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <figcaption>
-                    <h4>
-                    <a href="#">
-                        Caramel Bottle
-                    </a>
-                    </h4>
-                    <p>
-                        Lorem ipsum dolor.
+                        We are selling Domestic Litro Gas , under the sizes of 5.0 kg and 12.5 kg.
                     </p>
                     </figcaption>
                 </figure>
             </div>
         </div>
     </div>
-</section> --><!-- #works -->
-<!--
-==================================================
-Portfolio Section Start
-================================================== -->
+</section>
+
+
+<!--==================================================-->
+<!--Portfolio Section Start-->
+<!--================================================== -->
 <!--<section id="feature">
     <div class="container">
         <div class="section-heading">
@@ -388,44 +448,43 @@ Portfolio Section Start
             ==================================================
             Call To Action Section Start
             ================================================== -->
-<!--
+
             <section id="call-to-action">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="block">
                                 <h2 class="title wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">SO WHAT YOU THINK ?</h1>
-                                <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis,<br>possimus commodi, fugiat magnam temporibus vero magni recusandae? Dolore, maxime praesentium.</p>
+                                <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">---<br>--</p>
                                 <a href="contact.html" class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">Contact With Me</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            </section>-->
+            </section>
 
             <!--
             ==================================================
             Footer Section Start
             ================================================== -->
-            <!--<footer id="footer">
+            <footer id="footer">
                 <div class="container">
                     <div class="row content-justify-between">
                         <div class="col-md-8 col-12 text-center text-lg-left text-md-left">
-                            <p class="copyright">Copyright: Design and Developed by <a href="http://www.Themefisher.com" target="_blank">Themefisher</a>. <br>
-                                Get More Bootstrap Template From Our
-                                <a href="https://themefisher.com/free-bootstrap-templates/" target="_blank">Store</a>
+                            <p class="copyright">Copyright: Design and Developed by <a href="" target="_blank"></a>. <br>
+                                <a href="" target="_blank"></a>
                             </p>
                         </div>
                         <div class="col-md-4 col-12">
                             <ul class="social text-center text-md-right text-lg-right">
                                 <li>
-                                    <a href="http://wwww.fb.com/themefisher" class="Facebook">
+                                    <a href="" class="Facebook">
                                         <i class="ion-social-facebook"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://wwww.twitter.com/themefisher" class="Twitter">
+                                    <a href="" class="Twitter">
                                         <i class="ion-social-twitter"></i>
                                     </a>
                                 </li>
@@ -435,7 +494,7 @@ Portfolio Section Start
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://wwww.fb.com/themefisher" class="Google Plus">
+                                    <a href="" class="Google Plus">
                                         <i class="ion-social-googleplus"></i>
                                     </a>
                                 </li>
@@ -443,7 +502,7 @@ Portfolio Section Start
                         </div>
                     </div>
                 </div>
-            </footer>-->
+            </footer>
     {% block scripts%}
 	<!-- Template Javascript Files
 	================================================== -->
@@ -466,6 +525,8 @@ Portfolio Section Start
 	<!-- Fancybox -->
 	<script src="{% static '/plugins/facncybox/jquery.fancybox.js' %}"></script>
     {% endblock %}
+
+
 
 
 {% endblock %}

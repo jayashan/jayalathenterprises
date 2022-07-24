@@ -8,6 +8,17 @@ class Product(models.Model):
     evaporation=models.DecimalField('Evaporation Allowance', max_digits=10, decimal_places=2, default=0.00)
     brought_price=models.DecimalField('Brought Price',max_digits=10,decimal_places=2,default=0.00)
     discount=models.DecimalField(max_digits=10,decimal_places=2,null=False,default=0.00)
+    availability=models.IntegerField(null=False,default=0)
+    traffic=models.IntegerField(null=False,default=0)
+
+
+    BADGES_TYPE_CHOICES=[
+        ('primary','primary'),
+        ('secondary','secondary'),
+        ('danger','danger'),
+        ('warning','warning'),
+
+    ]
 
     CATEGORY_TYPE_CHOICES=[
         ('GOODS','Goods'),
@@ -15,6 +26,7 @@ class Product(models.Model):
     ]
 
     category_type=models.CharField(max_length=50,default='',blank=False,null=False,choices=CATEGORY_TYPE_CHOICES)
+    css_color_code = models.CharField(max_length=100,default='',blank=True,choices=BADGES_TYPE_CHOICES)
 
     def __str__(self):
         return self.product_name

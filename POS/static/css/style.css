@@ -340,7 +340,7 @@ a:hover {
 }
 
 #call-to-action {
-  background: #02bdd5;
+  background: #d50202;
   background-size: cover;
   background-attachment: fixed;
   padding: 80px 0;
@@ -1316,5 +1316,7 @@ ul.social-icons li {
 #copyright a:hover {
   text-decoration: none;
 }
+
+
 
 /*# sourceMappingURL=maps/style.css.map */
