@@ -20,3 +20,6 @@ urlpatterns = [
     path('98q4w94qw98d1q98w4e9x/', admin.site.urls),
     path('',include('POS.urls')),
 ]
+
+
+
