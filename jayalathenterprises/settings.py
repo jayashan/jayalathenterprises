@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-)i-9q-hh8t^lakhh01-5d5*a%9aqjkl!$v^*2=o-_t*=+^3l%p
 DEBUG = False
 
 # ALLOWED_HOSTS = ['jayalathenterprises.herokuapp.com','localhost','127.0.0.1:8000','www.jayalathenterprises.com','jayalathenterprises.com']
-ALLOWED_HOSTS = ['jayalathenterprises.com']
+ALLOWED_HOSTS = ['jayalathenterprises.herokuapp.com','jayalathenterprises.com']
 
 
 # Application definition
