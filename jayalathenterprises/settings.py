@@ -162,3 +162,5 @@ django_heroku.settings(locals())
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
+
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
