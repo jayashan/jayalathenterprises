@@ -168,16 +168,15 @@ Slider Section Start
                                                 </div>-->
                                             </div>
                                             <div class="media-body">
-                                                <p class="font-weight-bold">{{products.product_name}}</p>
-                                                <span class="badge badge-pill badge-{{products.css_color_code}}">{{products.product_id}}</span>
+                                                <span class="badge badge-pill badge-{{products.css_color_code}}">{{products.product_name}}</span>
                                                 {% if products.availability == 0 %}
-                                                    <p class="text-success">* Stock is empty</p>
+                                                    <p class="text-success">*Stock is empty</p>
                                                 {% elif products.availability < 50 %}
-                                                    <p class="text-success">* Stock is very low</p>
+                                                    <p class="text-success">*Stock is very low</p>
                                                 {% elif products.availability == 50 %}
-                                                    <p class="text-success"> * Stock is in average level</p>
+                                                    <p class="text-success"> *Stock is in average level</p>
                                                 {% elif products.availability == 100 %}
-                                                    <p class="text-success"> * Stock is enough for sale </p>
+                                                    <p class="text-success"> *Stock is enough for sale </p>
                                                 {%endif%}
                                                 <div class="progress">
                                                     <div id="limit" class="progress-bar bg-{{products.css_color_code}}" role="progressbar" style="width:{{products.availability}}%"; aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{products.availability}}%</div>
