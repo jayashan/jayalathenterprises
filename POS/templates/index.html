@@ -174,7 +174,7 @@ Slider Section Start
                                                     <p class="text-success">* Stock is empty</p>
                                                 {% elif products.availability <= 10 %}
                                                     <p class="text-success">* Stock is very low</p>
-                                                {% elif products.availability <= 50 %}
+                                                {% elif products.availability == 50 %}
                                                     <p class="text-success"> * Stock is in average level</p>
                                                 {% elif products.availability == 100 %}
                                                     <p class="text-success"> * Stock is enough for sale </p>
