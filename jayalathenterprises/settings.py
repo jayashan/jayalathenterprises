@@ -173,7 +173,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
 
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
+#COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
