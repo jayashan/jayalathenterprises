@@ -172,7 +172,7 @@ Slider Section Start
                                                 <span class="badge badge-pill badge-{{products.css_color_code}}">{{products.product_id}}</span>
                                                 {% if products.availability == 0 %}
                                                     <p class="text-success">* Stock is empty</p>
-                                                {% elif products.availability <= 10 %}
+                                                {% elif products.availability < 50 %}
                                                     <p class="text-success">* Stock is very low</p>
                                                 {% elif products.availability == 50 %}
                                                     <p class="text-success"> * Stock is in average level</p>
