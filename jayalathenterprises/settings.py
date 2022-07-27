@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import django_heroku
 import dj_database_url
@@ -24,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-)i-9q-hh8t^lakhh01-5d5*a%9aqjkl!$v^*2=o-_t*=+^3l%p'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -175,3 +177,4 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+

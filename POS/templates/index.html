@@ -14,16 +14,14 @@
         .body {
             background: #FFFAFA;
         }
-        section.services
-        {
-            margin-top:0px;
-
-        }
         .swiper-container
         {
             height: calc(100vh - 0px);
             margin: 0px;
             background-color: #0000F;
+        }
+        #services {
+            background: #FCFCFC;
         }
         .post-img {
             width: 1500px;
@@ -97,7 +95,7 @@ Slider Section Start
 <section id="blog-full-width">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+                <div class="col-md-4">
                 <div class="sidebar">
                         <div class="categories widget">
                             <h3 class="widget-head">News</h3>
@@ -149,7 +147,8 @@ Slider Section Start
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
+                    <div class="row" id="fuel_section">
+                        <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
                         <div class="post-content">
                         <section class="services" id="services">
                         <section id="feature">
@@ -176,171 +175,105 @@ Slider Section Start
                                                 <div class="progress">
                                                     <div class="progress-bar bg-{{products.css_color_code}}" role="progressbar" style="width:{{products.availability}}%"; aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{products.availability}}%</div>
                                                 </div>
-                                                <p class="font-weight-light">Fuel Availability Level</p>
+                                                <p class="font-weight-light">Next Load Arrival On:</p>
+                                                <p> {{products.arrival_date|date:'d-m-y'}}</p>
                                             </div>
                                         </div>
                                     </div>
                                     {% endfor %}
-
-                                    <!--
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="600ms">
-                                            <div class="media-left">
-                                                <div class="icon">
-                                                    <i class="ion-ios-lightbulb-outline"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">Well documented.</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="900ms">
-                                            <div class="media-left">
-                                                <div class="icon">
-                                                    <i class="ion-ios-lightbulb-outline"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">Well documented.</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="1200ms">
-                                            <div class="media-left">
-                                                <div class="icon">
-                                                    <i class="ion-ios-americanfootball-outline"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">Free updates</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="1500ms">
-                                            <div class="media-left">
-                                                <div class="icon">
-                                                    <i class="ion-ios-keypad-outline"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">Solid Support</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="media wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="1800ms">
-                                            <div class="media-left">
-                                                <div class="icon">
-                                                    <i class="ion-ios-barcode-outline"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">Simple Installation</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sint.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    -->
+                                    <p> * As the prevailing situation in Sri Lanka, we decided to publish you our current Fuel stock level which you can easily understand the availability of our fuel level.</p>
                                 </div>
                             </div>
                         </section>
                     </section>
                     </div>
                     </article>
-                    <article class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">
+                    </div>
+                    <div class="row" id="products">
+                        <article class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">
                         <section id="works" class="works">
-            <div class="container">
-                <div class="section-heading">
-                    <h1 class="title wow fadeInDown" data-wow-delay=".3s">OUR PRODUCTS</h1>
-                    <p class="wow fadeInDown" data-wow-delay=".5s">
-                        Whether you’re driving to the city or the surf, you’ll want the best fuel for every adventure. <br> All Ceypetco Fuels are formulated to protect your engine against rust corrosion and harmful deposits from the very first fill, so you can travel in confidence wherever the roads take you.
-                    </p>
+                            <div class="container">
+                                <div class="section-heading">
+                                    <h1 class="title wow fadeInDown" data-wow-delay=".3s">OUR SERVICES</h1>
+                                    <p class="wow fadeInDown" data-wow-delay=".5s">
+                                        Whether you’re driving to the city or the surf, you’ll want the best fuel for every adventure. <br> All Ceypetco Fuels are formulated to protect your engine against rust corrosion and harmful deposits from the very first fill, so you can travel in confidence wherever the roads take you.
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6">
+                                        <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
+                                            <div class="img-wrapper">
+                                                <img src="static/img/products/diesel.jpeg" class="img-fluid" alt="this is a title" >
+                                                <div class="overlay">
+                                                    <div class="buttons">
+                                                        <a rel="gallery" class="fancybox" href="">Demo</a>
+                                                        <a target="_blank" href="">Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <figcaption>
+                                                <h4>
+                                                <a href="">
+                                                    Petroleum
+                                                </a>
+                                                </h4>
+                                                <p>
+                                                    Our station is fully equipped with a range of fuel products from Petrol 95 octane , Petrol 92 Octane and Auto Diesel to Kerosene.
+                                                </p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                    <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
+                                        <div class="img-wrapper">
+                                            <img src="static/img/products/lubricants.jpg" class="img-fluid" alt="this is a title" >
+                                            <div class="overlay">
+                                                <div class="buttons">
+                                                    <a rel="gallery" class="fancybox" href="">Demo</a>
+                                                    <a target="_blank" href="">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <figcaption>
+                                        <h4>
+                                        <a href="#">
+                                            Lubricants
+                                        </a>
+                                        </h4>
+                                        <p>
+                                            All our lubricating oils are blended in a blending plant having ISO 9001/2000 certification.
+                                        </p>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
+                                            <div class="img-wrapper">
+                                            <img src="static/img/products/gas.jpg" class="img-fluid" alt="" >
+                                                <div class="overlay">
+                                                    <div class="buttons">
+                                                        <a rel="gallery" class="fancybox" href="">Demo</a>
+                                                        <a target="_blank" href="">Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <figcaption>
+                                            <h4>
+                                            <a href="#">
+                                                Litro Gas
+                                            </a>
+                                            </h4>
+                                            <p>
+                                                We are selling Domestic Litro Gas , under the sizes of 5.0 kg and 12.5 kg.
+                                            </p>
+                                            </figcaption>
+                                        </figure>
+                                </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
-                            <div class="img-wrapper">
-                                <img src="static/img/products/diesel.jpeg" class="img-fluid" alt="this is a title" >
-                                <div class="overlay">
-                                    <div class="buttons">
-                                        <a rel="gallery" class="fancybox" href="">Demo</a>
-                                        <a target="_blank" href="">Details</a>
-                                    </div>
-                                </div>
                             </div>
-                            <figcaption>
-                            <h4>
-                            <a href="#">
-                                Petroleum
-                            </a>
-                            </h4>
-                            <p>
-                                Our station is fully equipped with a range of fuel products from Petrol 95 octane , Petrol 92 Octane and Auto Diesel to Kerosene.
-                            </p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <div class="img-wrapper">
-                                <img src="static/img/products/lubricants.jpg" class="img-fluid" alt="this is a title" >
-                                <div class="overlay">
-                                    <div class="buttons">
-                                        <a rel="gallery" class="fancybox" href="">Demo</a>
-                                        <a target="_blank" href="">Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <figcaption>
-                            <h4>
-                            <a href="#">
-                                Lubricants
-                            </a>
-                            </h4>
-                            <p>
-                                All our lubricating oils are blended in a blending plant having ISO 9001/2000 certification.
-                            </p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <div class="img-wrapper">
-                                <img src="static/img/products/gas.jpg" class="img-fluid" alt="" >
-                                <div class="overlay">
-                                    <div class="buttons">
-                                        <a rel="gallery" class="fancybox" href="">Demo</a>
-                                        <a target="_blank" href="">Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <figcaption>
-                            <h4>
-                            <a href="#">
-                                Litro Gas
-                            </a>
-                            </h4>
-                            <p>
-                                We are selling Domestic Litro Gas , under the sizes of 5.0 kg and 12.5 kg.
-                            </p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </section>
+                        </section>
                     </article>
-                    <article class="wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">
-
-                    </article>
+                    </div>
                 </div>
             </div>
         </div>
