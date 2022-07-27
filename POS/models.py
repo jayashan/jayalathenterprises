@@ -25,13 +25,8 @@ class Product(models.Model):
         ('GOODS','Goods'),
         ('FUEL','Fuel'),
     ]
-
     category_type=models.CharField(max_length=50,default='',blank=False,null=False,choices=CATEGORY_TYPE_CHOICES)
     css_color_code = models.CharField(max_length=100,default='',blank=True,choices=BADGES_TYPE_CHOICES)
-
-    def __str__(self):
-        return self.product_name
-
 
 class Supplier(models.Model):
     supplier_id=models.BigAutoField(primary_key=True)

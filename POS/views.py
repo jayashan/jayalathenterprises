@@ -39,13 +39,20 @@ def home(request):
     title="Jayalath Enterprises"
     header="Jayalath Enterprises Home Page"
     product=Product.objects.all()
+    fuel = Product.objects.all()
     traffic=Product.traffic
+
+
+
+
 
     context={
         "title":title,
         "header":header,
         'product':product,
         'traffic':traffic,
+        'fuel':fuel,
+
     }
     return render(request,"index.html",context)
 
