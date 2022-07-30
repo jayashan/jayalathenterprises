@@ -56,6 +56,7 @@ six==1.16.0
 SQLAlchemy==1.2.19
 sqlparse==0.4.1
 stevedore==3.3.0
+supertools==1.0.1
 threadpoolctl==3.0.0
 tqdm==4.62.3
 urllib3==1.26.7
