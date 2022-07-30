@@ -19,12 +19,9 @@ future==0.18.2
 gunicorn==20.1.0
 html5lib==1.1
 idna==3.3
-joblib==1.1.0
 jsmin==2.2.2
-mathparse==0.1.2
 mysql-connector==2.2.9
 nltk==3.6.5
-numpy==1.23.0.dev0+139.gd565c4bf8
 packaging==21.3
 pbr==5.6.0
 php==1.2.1
@@ -43,7 +40,6 @@ PyYAML==3.13
 regex==2021.11.10
 reportlab==3.6.1
 requests==2.26.0
-scikit-learn==1.1.dev0
 Serializer==0.2.1
 simplejson==3.17.5
 six==1.16.0
