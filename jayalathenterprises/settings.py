@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-)i-9q-hh8t^lakhh01-5d5*a%9aqjkl!$v^*2=o-_t*=+^3l%p
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['jayalathenterprises.herokuapp.com','localhost','127.0.0.1:8000','www.jayalathenterprises.com','jayalathenterprises.com']
 
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'POS',
     'crispy_forms',
     'django_filters',
+    'NEWS',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +147,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+MEDIA_URL='/media/'
 
 # STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 

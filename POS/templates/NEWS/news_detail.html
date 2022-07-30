@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{post.title}}
+{% endblock %}
+{% block content %}
+<br/>
+<br/>
+    {{post.title}} -{{post.publish_date}}<small><a href="{%url 'edit_post' post.pk %}">(Edit Post)</a>
+            <a href="{%url 'delete_post' post.pk %}">(Delete Post)</a>
+    </small>
+    <br/>
+    <img src="{{post.image.url}}"><br><br/>
+    {{post.body |safe }}
+    <br/><br/>
+    <a href="{% url 'home_news' %}">Back</a>
+    <br/><br/>
+    <form action="{% url 'like_post' post.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>-{{total_likes}} Likes
+    </form>
+{% endblock %}

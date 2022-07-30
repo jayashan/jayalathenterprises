@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+{% if category_posts%}
+    <h1>{{cats}}</h1>
+
+    <ul>
+        {% for post in category_posts %}
+            <li><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a>-{{post.author.first_name}}
+                {{post.author.last_name}}-{{post.author.email}}--({{post.publish_date}})--<small><a href="{%url 'edit_post' post.pk %}">(Edit Post)</a>
+                <a href="{%url 'delete_post' post.pk %}">(Delete Post)</a>
+                </small><br/>
+                {{post.body | slice:":200" }}
+                <br/>
+                <label>--------------------</label>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    sorry no posts
+{% endif %}
+
+
+{% endblock %}
