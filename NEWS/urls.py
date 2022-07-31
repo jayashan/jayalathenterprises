@@ -16,18 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from.import views
-from .views import PostHomeView,PostDetailView,AddPostView,UpdatePostView,DeletePostView,AddCategoryView,CategoryView,LikeView
+# from .views import PostHomeView,PostDetailView,AddPostView,UpdatePostView,DeletePostView,AddCategoryView,CategoryView,LikeView
 
 
 urlpatterns = [
     # path("",views.home,name='home'),
-    path('',PostHomeView.as_view(),name='home_news'),
-    path('post/<int:pk>',PostDetailView.as_view(),name='post-detail'),
-    path('add_post/',AddPostView.as_view(),name='add_post'),
-    path('post/edit/<int:pk>',UpdatePostView.as_view(),name='edit_post'),
-    path('post/<int:pk>/delete',DeletePostView.as_view(),name='delete_post'),
-    path('add_category/',AddCategoryView.as_view(),name='add_category'),
-    path('category/<str:cats>/',CategoryView,name='category'),
-    path('like/<int:pk>', LikeView,name='like_post')
+    # path('',PostHomeView.as_view(),name='home_news'),
+    # path('post/<int:pk>',PostDetailView.as_view(),name='post-detail'),
+    # path('add_post/',AddPostView.as_view(),name='add_post'),
+    # path('post/edit/<int:pk>',UpdatePostView.as_view(),name='edit_post'),
+    # path('post/<int:pk>/delete',DeletePostView.as_view(),name='delete_post'),
+    # path('add_category/',AddCategoryView.as_view(),name='add_category'),
+    # path('category/<str:cats>/',CategoryView,name='category'),
+    # path('like/<int:pk>', LikeView,name='like_post')
 
 ]
