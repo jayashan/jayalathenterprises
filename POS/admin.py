@@ -31,6 +31,8 @@ admin.site.register(Station)
 admin.site.register(Shift)
 admin.site.register(Shift_Detail)
 admin.site.register(Shift_Money)
+admin.site.register(Post)
+admin.site.register(Category)
 
 
 
