@@ -23,7 +23,7 @@ from django.views.static import serve
 urlpatterns = [
     path('98q4w94qw98d1q98w4e9x/', admin.site.urls),
     path('',include('POS.urls')),
-    path('news/',include('NEWS.urls')),
+    # path('news/',include('NEWS.urls')),
 
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
