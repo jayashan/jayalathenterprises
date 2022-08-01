@@ -20,7 +20,7 @@ from.import views
 
 
 urlpatterns = [
-    path("",views.home,name='home'),
+    # path("",views.home,name='home'),
     # path('',PostHomeView.as_view(),name='home_news'),
     # path('post/<int:pk>',PostDetailView.as_view(),name='post-detail'),
     # path('add_post/',AddPostView.as_view(),name='add_post'),

@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     'POS',
     'crispy_forms',
     'django_filters',
-    'NEWS',
+    'NEWS2',
     'ckeditor',
+    'NEWS',
 ]
 
 MIDDLEWARE = [
