@@ -12,6 +12,7 @@ from .filters import BillFilter,OrderFilter
 from django.views.generic import ListView
 import datetime
 import random
+from NEWS.models import Post
 
 
 
@@ -41,11 +42,7 @@ def home(request):
     product=Product.objects.all()
     fuel = Product.objects.all()
     traffic=Product.traffic
-
-
-
-
-
+    news=Post.objects.all()
 
     context={
         "title":title,
@@ -53,6 +50,7 @@ def home(request):
         'product':product,
         'traffic':traffic,
         'fuel':fuel,
+        'news':news,
 
     }
     return render(request,"index.html",context)

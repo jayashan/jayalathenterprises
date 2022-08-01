@@ -1,20 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<br>
-<br/>
-<h1>News Detail View </h1>
-    {{post.title}} -{{post.publish_date}}<small><a href="">(Edit Post)</a>
-            <a href="">(Delete Post)</a>
-    </small>
-    <br/>
-    {% if post.image %}
-    <img src="{{post.image.url}}"><br><br/>
-    {% else %}
-    <p>No Image </p>
-    {% endif %}
-    {{post.body |safe }}
-    <br/><br/>
-    <a href="{% url 'home_news' %}">Back</a>
-    <br/><br/>
+<section id="blog-full-width">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <article class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">
+                    <div class="blog-post-image">
+                        <a href="post-fullwidth.html"><img class="img-fluid" src="images/blog/post-2.jpg" alt="" /></a>
+                    </div>
+                    <div class="blog-content">
+                        <h2 class="blogpost-title">
+                            <a href="post-fullwidth.html">{{post.title}}</a>
+                        </h2>
+                        <div class="blog-meta">
+                            <span>{{post.publish_date}}</span>
+                            <!--<span>by <a href="">Admin</a></span>-->
+                            <span><a href="">{{post.category}}</a></a></span>
+                        </div>
+                        <p>
+                            {% if post.image %}
+                                <img src="{{post.image.url}}"><br><br/>
+                            {% else %}
+                            <p>No Image </p>
+                            {% endif %}
+                            {{post.body |safe }}
+                        </p>
+                        <a href="{% url 'home' %}" class="btn btn-dafault btn-details hvr-bounce-to-right">Home Page</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

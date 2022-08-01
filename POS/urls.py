@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from.import views
-
+# from .views import News_Home_Page,NewsDetailView,AddNewsView,UpdateNewsView,DeleteNewsView
+from NEWS.views import NewsDetailView
 
 
 urlpatterns = [
@@ -76,7 +77,11 @@ urlpatterns = [
 
     path('Add_Station/',views.Add_Station,name='Add_Station'),
     path('login',views.login,name='login'),
-    path('logout',views.logout,name='logout')
+    path('logout',views.logout,name='logout'),
+
+    #==========NEWS======================
+
+    path('post/<int:pk>',NewsDetailView.as_view(),name='post-detail'),
 
 
 ]

@@ -6,6 +6,7 @@ from .models import *
 class NewsForm(forms.ModelForm):
     class Meta:
         model=Post
+
         fields = ('title', 'title_tag', 'author', 'image', 'category', 'body')
 
         widgets={

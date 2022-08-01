@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+
 # Create your models here.
 class Product(models.Model):
     product_id=models.CharField(primary_key=True,max_length=50)
@@ -275,4 +276,6 @@ class Bills(models.Model):
     price=models.IntegerField()
     created_at = models.DateField(auto_now_add=True)
     objects = models.Manager()
+
+
 
