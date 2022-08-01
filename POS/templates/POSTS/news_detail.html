@@ -7,7 +7,11 @@
             <a href="">(Delete Post)</a>
     </small>
     <br/>
+    {% if post.image %}
     <img src="{{post.image.url}}"><br><br/>
+    {% else %}
+    <p>No Image </p>
+    {% endif %}
     {{post.body |safe }}
     <br/><br/>
     <a href="{% url 'home_news' %}">Back</a>

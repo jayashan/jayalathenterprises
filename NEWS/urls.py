@@ -17,15 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from.import views
 from .views import *
-from .views import News_Home_Page,NewsDetailView,AddNewsView
+from .views import News_Home_Page,NewsDetailView,AddNewsView,UpdateNewsView,DeleteNewsView
 
 urlpatterns = [
     #path("",views.home,name='home'),
     path('',News_Home_Page.as_view(),name='home_news'),
     path('post/<int:pk>',NewsDetailView.as_view(),name='post-detail'),
     path('add_post/',AddNewsView.as_view(),name='add_post'),
-    # path('post/edit/<int:pk>',UpdatePostView.as_view(),name='edit_post'),
-    # path('post/<int:pk>/delete',DeletePostView.as_view(),name='delete_post'),
+    path('post/edit/<int:pk>',UpdateNewsView.as_view(),name='edit_post'),
+    path('post/<int:pk>/delete',DeleteNewsView.as_view(),name='delete_post'),
     # path('add_category/',AddCategoryView.as_view(),name='add_category'),
     # path('category/<str:cats>/',CategoryView,name='category'),
     # path('like/<int:pk>', LikeView,name='like_post')

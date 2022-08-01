@@ -7,8 +7,8 @@
 <a href="">Add Category</a>
 {% for post in object_list %}
         <li><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a>-{{post.author.first_name}}--<a href="">{{post.category}}</a>
-            {{post.author.last_name}}-{{post.author.email}}--({{post.publish_date}})--<small><a href="">(Edit Post)</a>
-            <a href="">(Delete Post)</a>
+            {{post.author.last_name}}-{{post.author.email}}--({{post.publish_date}})--<small><a href="{% url 'edit_post' post.pk %}">(Edit Post)</a>
+            <a href="{% url 'delete_post' post.pk %}">(Delete Post)</a>
             </small><br/>
             {{post.body | slice:":200" |safe}}
             <br/>
