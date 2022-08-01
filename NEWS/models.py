@@ -13,12 +13,25 @@ class Post(models.Model):
     # body=models.TextField()
     body = RichTextField(blank=True,null=True)
     publish_date=models.DateField(auto_now_add=True)
-    category=models.CharField(max_length=225,default='not_categorize')
-    likes=models.ManyToManyField(User,related_name='blog_posts')
+
+    CATEGORY_CHOICES=[
+        ('LOCAL','LOCAL'),
+        ('BUSINESS','BUSINESS'),
+        ('TRADE','TRADE'),
+        ('INTERNATIONAL','INTERNATIONAL'),
+
+    ]
+
+    category=models.CharField(max_length=225,default='not_categorize',blank=True,null=True,choices=CATEGORY_CHOICES)
+
 
 
     def __str__(self):
         return self.title+ '|'+ str(self.author)
+
+    def get_absolute_url(self):
+        # return reverse('post-detail',args=(str(self.id)))
+        return reverse('home_news')
 
 
 

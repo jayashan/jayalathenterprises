@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<br/>
+<h1>News Detail View </h1>
+    {{post.title}} -{{post.publish_date}}<small><a href="">(Edit Post)</a>
+            <a href="">(Delete Post)</a>
+    </small>
+    <br/>
+    <img src="{{post.image.url}}"><br><br/>
+    {{post.body |safe }}
+    <br/><br/>
+    <a href="{% url 'home_news' %}">Back</a>
+    <br/><br/>
+
+{% endblock %}
