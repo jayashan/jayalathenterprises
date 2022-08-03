@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import render,get_object_or_404
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from .models import *
@@ -8,8 +9,9 @@ from django.urls import reverse_lazy,reverse
 # Create your views here.
 
 def home(request):
+    post=Post.objects.all()
     context={
-
+        'post':post
     }
     return render(request,'POSTS/index.html',context)
 

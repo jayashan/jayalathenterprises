@@ -13,6 +13,9 @@ from django.views.generic import ListView
 import datetime
 import random
 from NEWS.models import Post
+from django.db.models import Count
+from datetime import date
+
 
 
 
@@ -42,7 +45,9 @@ def home(request):
     product=Product.objects.all()
     fuel = Product.objects.all()
     traffic=Product.traffic
-    news=Post.objects.all()
+    news=Post.objects.all().order_by('-publish_date')
+    news_category=Post.objects.values('category').annotate(dcount=Count('category')).order_by()
+    latest=Post.objects.all().filter(publish_date=date.today())
 
     context={
         "title":title,
@@ -51,6 +56,8 @@ def home(request):
         'traffic':traffic,
         'fuel':fuel,
         'news':news,
+        'news_category':news_category,
+        'latest':latest
 
     }
     return render(request,"index.html",context)

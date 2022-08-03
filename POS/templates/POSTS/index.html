@@ -15,6 +15,9 @@
                     <label>--------------------</label>
                 </li>
         {% endfor %}
+        {% for post in post %}
+            {{post}}
+        {% endfor %}
     {% else%}
             <li>
                 <div class="alert alert-danger" role="alert">
