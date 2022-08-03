@@ -14,7 +14,7 @@ class Product(models.Model):
     discount=models.DecimalField(max_digits=10,decimal_places=2,null=False,default=0.00)
     availability=models.IntegerField(null=False,default=0)
     traffic=models.IntegerField(null=False,default=0)
-    arrival_date=models.DateTimeField(editable=True)
+    arrival_date=models.DateTimeField(editable=True,null=True,blank=True,default='')
 
 
     BADGES_TYPE_CHOICES=[
