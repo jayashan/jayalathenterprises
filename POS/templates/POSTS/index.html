@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
     {% block content %}
-        {% if user.is_authenticated %}
         <br>
         <br/>
         <h1>News Home Page</h1>
@@ -15,21 +14,6 @@
                     <label>--------------------</label>
                 </li>
         {% endfor %}
-        {% for post in post %}
-            {{post}}
-        {% endfor %}
-    {% else%}
-            <li>
-                <div class="alert alert-danger" role="alert">
-                  <h4 class="alert-heading">Sorry</h4>
-                  <p>Page Not Found</p>
-                  <hr>
-                  <p class="mb-0">Page Not Found</p>
-                </div>
-                <a href="{% url 'home' %}" class="btn btn-dafault btn-details hvr-bounce-to-right">Home Page</a>
-            </li>
-
-    {%endif%}
 {% endblock %}
 
 
