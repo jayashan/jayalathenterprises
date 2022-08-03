@@ -133,7 +133,7 @@ Slider Section Start
                             {% for news in latest %}
                             <ul>
                                 <li>
-                                    <a href="#">{{news.title}}</a><br>
+                                    <a href="{% url 'post-detail' news.pk %}">{{news.title}}</a><br>
                                     <time>{{news.publish_date}}</time>
                                 </li>
                             </ul>
