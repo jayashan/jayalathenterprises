@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-)i-9q-hh8t^lakhh01-5d5*a%9aqjkl!$v^*2=o-_t*=+^3l%p
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['jayalathenterprises.herokuapp.com','localhost','127.0.0.1:8000','www.jayalathenterprises.com','jayalathenterprises.com']
 
@@ -153,16 +153,16 @@ MEDIA_URL='/media/'
 
 # STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 
-STATIC_ROOT=os.path.join(BASE_DIR,'static/')
+# STATIC_ROOT=os.path.join(BASE_DIR,'static/')
 
-# if DEBUG:
-#     STATICFILES_DIRS = [
-#         os.path.join(BASE_DIR, '/static/'),
-#     ]
-# else:
-#     STATICFILES_ROOT = [
-#         os.path.join(BASE_DIR, '/static/'),
-#     ]
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
+else:
+    STATICFILES_ROOT = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
