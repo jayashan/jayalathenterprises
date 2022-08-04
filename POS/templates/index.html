@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
 <style>
@@ -282,26 +283,29 @@ Slider Section Start
 
 
 <!---end news section--->
-
-
 <!--
 ==================================================
 Call To Action Section Start
 ================================================== -->
 <section id="call-to-action">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="block">
-                                        <h1 class="title wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">SO WHAT YOU THINK ?</h1>
-                                        <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">---<br>--</p>
-                                        <a href="contact.html" class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">Contact With Me</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{% static 'img/CPC_logo.png' %}">
+            </div>
+            <div class="col-md-4">
+                <div class="block">
+                    <h1 class="title wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms" align="left" style="color:#FFFF;">JAYALATH ENTERPRISES LANKA FILLING STATION</h1>
+                        <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms" align="left">75, MANKULIYA ROAD<br>NEGOMBO, 12500</p>
+                        <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms" align="left">TELL : 031 2238529</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63935676.841955595!2d73.33728309671552!3d-12.02119931624307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2ee9cd7f7a957%3A0x1e68683ae7ab3ccd!2sJayalath%20Enterprises!5e0!3m2!1sen!2sau!4v1659629678107!5m2!1sen!2sau" width="420" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!--
 ==================================================
@@ -311,34 +315,34 @@ Footer Section Start
     <div class="container">
         <div class="row content-justify-between">
             <div class="col-md-8 col-12 text-center text-lg-left text-md-left">
-                <p class="copyright">Copyright: Design and Developed by <a href="" target="_blank"></a>. <br>
+                <p class="copyright">Copyright: Design and Developed by JAYALATH ENTERPRISES <a href="" target="_blank"></a>. <br>
                     <a href="" target="_blank"></a>
                 </p>
             </div>
-            <div class="col-md-4 col-12">
-                <ul class="social text-center text-md-right text-lg-right">
-                    <li>
-                        <a href="" class="Facebook">
-                            <i class="ion-social-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="Twitter">
-                            <i class="ion-social-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="Linkedin">
-                            <i class="ion-social-linkedin"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="Google Plus">
-                            <i class="ion-social-googleplus"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<!--            <div class="col-md-4 col-12">-->
+<!--                <ul class="social text-center text-md-right text-lg-right">-->
+<!--                    <li>-->
+<!--                        <a href="" class="Facebook">-->
+<!--                            <i class="ion-social-facebook"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="" class="Twitter">-->
+<!--                            <i class="ion-social-twitter"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#" class="Linkedin">-->
+<!--                            <i class="ion-social-linkedin"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="" class="Google Plus">-->
+<!--                            <i class="ion-social-googleplus"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
         </div>
     </div>
 </footer>
