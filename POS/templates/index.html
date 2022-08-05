@@ -94,16 +94,16 @@ Slider Section Start
 <section id="blog-full-width">
     <div class="container">
         <div class="row">
-                <div class="col-md-4">
+            <div class="col-md-4">
                 <div class="sidebar">
-                        <div class="categories widget">
-                            <h3 class="widget-head">News</h3>
-                            <ul>
-                                {% for news in news %}
-                                <li>
-                                    <a class="text-primary" href="{% url 'post-detail' news.pk %}">{{news.title}}</a><span><p class="fw-lighter">{{news.category}}</p></span>
-                                </li>
-                                {% endfor %}
+                    <div class="categories widget">
+                        <h3 class="widget-head">News</h3>
+                        <ul>
+                            {% for news in news %}
+                            <li>
+                                <a class="text-primary" href="{% url 'post-detail' news.pk %}">{{news.title}}</a><span><p class="fw-lighter">{{news.category}}</p></span>
+                            </li>
+                            {% endfor %}
 <!--                                <li>-->
 <!--                                    <a href="">headline 2</a> <span class="badge">2</span>-->
 <!--                                </li>-->
@@ -116,82 +116,82 @@ Slider Section Start
 <!--                                <li>-->
 <!--                                    <a href="">headline 5</a> <span class="badge">3</span>-->
 <!--                                </li>-->
-                            </ul>
-                        </div>
-                        <div class="categories widget">
-                            <h3 class="widget-head">Category</h3>
-                            <ul>
-                                {% for news in news_category %}
-                               <li>
-                                  <a href=""></a>{{news.category}}<span class="badge badge-secondary">{{news.dcount}}</span>
-                               </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <div class="recent-post widget">
-                            <h3>Recent News</h3>
+                        </ul>
+                    </div>
+                    <div class="categories widget">
+                        <h3 class="widget-head">Category</h3>
+                        <ul>
+                            {% for news in news_category %}
+                            <li>
+                                <a href=""></a>{{news.category}}<span class="badge badge-secondary">{{news.dcount}}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="recent-post widget">
+                        <h3>Recent News</h3>
                             {% for news in latest %}
-                            <ul>
-                                <li>
-                                    <a href="{% url 'post-detail' news.pk %}">{{news.title}}</a><br>
+                        <ul>
+                            <li>
+                                <a href="{% url 'post-detail' news.pk %}">{{news.title}}</a><br>
                                     <time>{{news.publish_date}}</time>
                                 </li>
                             </ul>
                             {% endfor %}
                         </div>
-                    </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="row" id="fuel_section">
-                        <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
+            </div>
+            <div class="col-md-8">
+                <div class="row" id="fuel_section">
+                    <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
                         <div class="post-content">
-                        <section class="services" id="services">
-                        <section id="feature">
-                            <div class="container">
-                                <div class="section-heading">
-                                    <h1 class="title wow fadeInDown" data-wow-delay=".3s">Fuel Availability</h1>
-                                    <p class="wow fadeInDown" data-wow-delay=".5s">
-                                        PERFORMANCE AND RELIABILITY WITH CEYPETCO FUEL
-                                    </p>
-                                </div>
-                                <div class="row">
-                                    {% for products in product%}
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="media wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
-                                            <div class="media-left">
-                                                <!--<div class="icon">
-                                                    <i class="ion-ios-flask-outline"></i>
-                                                </div>-->
-                                            </div>
-                                            <div class="media-body">
-                                                <span class="badge badge-pill badge-{{products.css_color_code}}">{{products.product_name}}</span>
-                                                {% if products.availability == 0 %}
-                                                    <p class="text-success">*Stock is empty</p>
-                                                {% elif products.availability < 50 %}
-                                                    <p class="text-success">*Stock is very low</p>
-                                                {% elif products.availability == 50 %}
-                                                    <p class="text-success"> *Stock is in average level</p>
-                                                {% elif products.availability == 100 %}
-                                                    <p class="text-success"> *Stock is enough for sale </p>
-                                                {%endif%}
-                                                <div class="progress">
-                                                    <div id="limit" class="progress-bar bg-{{products.css_color_code}}" role="progressbar" style="width:{{products.availability}}%"; aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{products.availability}}%</div>
+                            <section class="services" id="services">
+                                <section id="feature">
+                                    <div class="container">
+                                        <div class="section-heading">
+                                            <h1 class="title wow fadeInDown" data-wow-delay=".3s">Fuel Availability</h1>
+                                            <p class="wow fadeInDown" data-wow-delay=".5s">
+                                                PERFORMANCE AND RELIABILITY WITH CEYPETCO FUEL
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                        {% for products in product%}
+                                        <div class="col-sm-6 col-lg-4">
+                                            <div class="media wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay="300ms">
+                                                <div class="media-left">
+                                                    <!--<div class="icon">
+                                                        <i class="ion-ios-flask-outline"></i>
+                                                    </div>-->
                                                 </div>
-                                                <p class="font-weight-bold">Next Arrival: {{products.next_arrival|date:'d-m-y'}}</p>
+                                                <div class="media-body">
+                                                    <span class="badge badge-pill badge-{{products.css_color_code}}">{{products.product_name}}</span>
+                                                    {% if products.availability == 0 %}
+                                                        <p class="text-success">*Stock is empty</p>
+                                                    {% elif products.availability < 50 %}
+                                                        <p class="text-success">*Stock is very low</p>
+                                                    {% elif products.availability == 50 %}
+                                                        <p class="text-success"> *Stock is in average level</p>
+                                                    {% elif products.availability == 100 %}
+                                                        <p class="text-success"> *Stock is enough for sale </p>
+                                                    {%endif%}
+                                                    <div class="progress">
+                                                        <div id="limit" class="progress-bar bg-{{products.css_color_code}}" role="progressbar" style="width:{{products.availability}}%"; aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{products.availability}}%</div>
+                                                    </div>
+                                                    <p class="font-weight-bold">Next Arrival: {{products.next_arrival|date:'d-m-y'}}</p>
+                                                </div>
                                             </div>
                                         </div>
+                                        {% endfor %}
+                                        <p> * As the prevailing situation in Sri Lanka, we decided to publish our current Fuel stock level which you can easily understand the availability of our fuel level.</p>
                                     </div>
-                                    {% endfor %}
-                                    <p> * As the prevailing situation in Sri Lanka, we decided to publish our current Fuel stock level which you can easily understand the availability of our fuel level.</p>
-                                </div>
-                            </div>
-                        </section>
-                    </section>
-                    </div>
+                                    </div>
+                                </section>
+                            </section>
+                        </div>
                     </article>
-                    </div>
-                    <div class="row" id="products">
-                        <article class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">
+                </div>
+                <div class="row" id="products">
+                    <article class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">
                         <section id="works" class="works">
                             <div class="container">
                                 <div class="section-heading">
@@ -225,7 +225,7 @@ Slider Section Start
                                         </figure>
                                     </div>
                                     <div class="col-md-4 col-sm-6">
-                                    <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
+                                        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
                                         <div class="img-wrapper">
                                             <img src="static/img/products/lubricants.jpg" class="img-fluid" alt="this is a title" >
                                             <div class="overlay">
@@ -236,124 +236,56 @@ Slider Section Start
                                             </div>
                                         </div>
                                         <figcaption>
-                                        <h4>
-                                        <a href="#">
-                                            Lubricants
-                                        </a>
-                                        </h4>
-                                        <p>
-                                            All our lubricating oils are blended in a blending plant having ISO 9001/2000 certification.
-                                        </p>
+                                            <h4>
+                                            <a href="#">
+                                                Lubricants
+                                            </a>
+                                            </h4>
+                                            <p>
+                                                All our lubricating oils are blended in a blending plant having ISO 9001/2000 certification.
+                                            </p>
                                         </figcaption>
                                     </figure>
-                                </div>
+                                    </div>
                                     <div class="col-md-4 col-sm-6">
                                         <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
                                             <div class="img-wrapper">
-                                            <img src="static/img/products/gas.jpg" class="img-fluid" alt="" >
-                                                <div class="overlay">
-                                                    <div class="buttons">
+                                                <img src="static/img/products/gas.jpg" class="img-fluid" alt="" >
+                                                    <div class="overlay">
+                                                        <div class="buttons">
                                                         <a rel="gallery" class="fancybox" href="">Demo</a>
                                                         <a target="_blank" href="">Details</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <figcaption>
-                                            <h4>
-                                            <a href="#">
-                                                Litro Gas
-                                            </a>
-                                            </h4>
-                                            <p>
-                                                We are selling Domestic Litro Gas , under the sizes of 5.0 kg and 12.5 kg.
-                                            </p>
+                                                <h4>
+                                                <a href="#">
+                                                    Litro Gas
+                                                </a>
+                                                </h4>
+                                                <p>
+                                                    We are selling Domestic Litro Gas , under the sizes of 5.0 kg and 12.5 kg.
+                                                </p>
                                             </figcaption>
                                         </figure>
+                                    </div>
                                 </div>
-                </div>
                             </div>
                         </section>
                     </article>
-                    </div>
                 </div>
-            </div>
-        </div>
-</section>
-
-
-<!---end news section--->
-<!--
-==================================================
-Call To Action Section Start
-================================================== -->
-<section id="call-to-action">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <img src="{% static 'img/lanka.png' %}" width="100" height="100">
-            </div>
-            <div class="col-md-4">
-                <div class="block">
-                    <h1 class="title wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms" align="left" style="color:#FFFF;">JAYALATH ENTERPRISES LANKA FILLING STATION</h1>
-                        <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms" align="left">75, MANKULIYA ROAD<br>NEGOMBO, 12500</p>
-                        <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms" align="left">TELL : 031 2238529</p>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63935676.841955595!2d73.33728309671552!3d-12.02119931624307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2ee9cd7f7a957%3A0x1e68683ae7ab3ccd!2sJayalath%20Enterprises!5e0!3m2!1sen!2sau!4v1659629678107!5m2!1sen!2sau" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
 </section>
 
-<!--
-==================================================
-Footer Section Start
-================================================== -->
-<footer id="footer">
-    <div class="container">
-        <div class="row content-justify-between">
-            <div class="col-md-8 col-12 text-center text-lg-left text-md-left">
-                <p class="copyright">Copyright: Design and Developed by JAYALATH ENTERPRISES <a href="" target="_blank"></a>. <br>
-                    <a href="" target="_blank"></a>
-                </p>
-            </div>
-<!--            <div class="col-md-4 col-12">-->
-<!--                <ul class="social text-center text-md-right text-lg-right">-->
-<!--                    <li>-->
-<!--                        <a href="" class="Facebook">-->
-<!--                            <i class="ion-social-facebook"></i>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="" class="Twitter">-->
-<!--                            <i class="ion-social-twitter"></i>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="#" class="Linkedin">-->
-<!--                            <i class="ion-social-linkedin"></i>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="" class="Google Plus">-->
-<!--                            <i class="ion-social-googleplus"></i>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-        </div>
-    </div>
-</footer>
+{% endblock content %}
 
-
-
-
-    {% block scripts%}
+{% block footer_scripts %}
 	<!-- Template Javascript Files
 	================================================== -->
     <!-- template main js -->
-    {% load static %}
     <script src="{% static '/js/main.js' %}"></script>
 	<!-- jquery -->
 	<script src="{% static '/plugins/jQurey/jquery.min.js' %}"></script>
@@ -370,10 +302,10 @@ Footer Section Start
 	<script src="{% static '/plugins/slider/slider.js' %}"></script>
 	<!-- Fancybox -->
 	<script src="{% static '/plugins/facncybox/jquery.fancybox.js' %}"></script>
-    {% endblock %}
 
 
-<script>
+
+    <script>
         window.onload = function exampleFunction() {
 
             PrintComment();
@@ -388,7 +320,5 @@ Footer Section Start
 
             }
         }
-</script>
-
-
+    </script>
 {% endblock %}

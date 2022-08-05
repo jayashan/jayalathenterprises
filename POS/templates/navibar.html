@@ -1,73 +1,51 @@
-<nav class="navbar navbar-light bg-light fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Jayalath Enterprises</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ADMIN</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'settings_home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_invoice' %}">SALES</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'inventory' %}">Inventory</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              ORDERS
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'Make_Order' %}">Make Orders</a></li>
-<!--              <li><a class="dropdown-item" href="#">Another action</a></li>-->
-<!--              <li>-->
-<!--                <hr class="dropdown-divider">-->
-<!--              </li>-->
-<!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              SETTINGS
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'Add_Fuels' %}">ADD Fuels</a></li>
-              <li><a class="dropdown-item" href="{% url 'make_shifts' %}">Make Shifts</a></li>
-              <li><a class="dropdown-item" href="{% url 'Add_Station' %}">Make Stations</a></li>
-<!--              <li>-->
-<!--                <hr class="dropdown-divider">-->
-<!--              </li>-->
-<!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              REPORTS
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'list_invoices' %}">INVOICES</a></li>
-<!--              <li><a class="dropdown-item" href="#">Another action</a></li>-->
-<!--              <li>-->
-<!--                <hr class="dropdown-divider">-->
-<!--              </li>-->
-<!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-            </ul>
-          </li>
-        </ul>
-<!--        <form class="d-flex">-->
-<!--          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--          <button class="btn btn-outline-success" type="submit">Search</button>-->
-<!--        </form>-->
-      </div>
+{% load static %}
+<section class="top-bar animated-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="{% static 'img/logo.png' %}" alt="logo" width="50" height="50">
+                        <a class="navbar-brand" href="#">Jayalath Enterprises</a>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'home' %}">Home
+                                    <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Gallery</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Products
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="">-</a>
+                                    <a class="dropdown-item" href="">-</a>
+                                    <a class="dropdown-item" href="">-</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </div>
-  </div>
-</nav>
-
-
+</section>>
