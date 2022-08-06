@@ -15,6 +15,8 @@ import random
 from NEWS.models import Post
 from django.db.models import Count
 from datetime import date
+from django.contrib.auth import login,authenticate
+from django.contrib.auth.forms import AuthenticationForm
 
 
 
@@ -63,23 +65,46 @@ def home(request):
     return render(request,"index.html",context)
 
 def login(request):
-    title='login'
+    # login form method 2
 
+    # title='login'
+    #
+    # if request.method=='POST':
+    #     username=request.POST['username']
+    #     password=request.POST['password']
+    #
+    #     user=auth.authenticate(username=username,password=password)
+    #
+    #     if user is not None:
+    #         auth.login(request,user)
+    #         return redirect('/settings_home')
+    #     else:
+    #         messages.info(request,'invalid credentials')
+    #         return redirect('login')
+    #
+    # else:
+    #     return render(request, 'login.html')
+
+    # Login Form method 2
     if request.method=='POST':
-        username=request.POST['username']
-        password=request.POST['password']
+        form=AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username=form.cleaned_data.get('username')
+            password=form.cleaned_data.get('password')
+            user=auth.authenticate(username=username,password=password)
 
-        user=auth.authenticate(username=username,password=password)
-
-        if user is not None:
-            auth.login(request,user)
-            return redirect('/settings_home')
+            if user is not None:
+                auth.login(request,user)
+                messages.info(request,f'Idiot..! you are logged in as {username}.')
+                return redirect('/settings_home')
+            else:
+                messages.error(request,'Invalid username and password')
         else:
-            messages.info(request,'invalid credentials')
-            return redirect('login')
+            messages.error(request,'Invalid username or password')
 
-    else:
-        return render(request, 'login.html')
+    form=AuthenticationForm()
+    return render(request=request,template_name='login.html',context={'login_form':form})
+
 
 def logout(request):
     auth.logout(request)
