@@ -1,24 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load crispy_forms_tags %}
-<!--<div class="container" xmlns="http://www.w3.org/1999/html">-->
-<!--    <div class="myform">-->
-<!--        <form action="login" method="post">-->
-<!--            {% csrf_token %}-->
-<!--            <input type="text" name="username" placeholder="username">-->
-<!--            <input type="password" name="password" placeholder="password">-->
-<!--            <button type="submit" name="login" >Login</button>-->
-<!--        </form>-->
-<!--        {% if messages %}-->
-<!--            <ul class="messages">-->
-<!--                {% for message in messages %}-->
-<!--                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-<!--                {% endfor %}-->
-<!--            </ul>-->
-<!--        {% endif %}-->
-
-<!--    </div>-->
-<!--</div>-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<style>
 		body,
@@ -128,8 +110,5 @@
 			</div>
 		</div>
     </div>
-
-
-
-{% endblock %}
+{% endblock content%}
 
