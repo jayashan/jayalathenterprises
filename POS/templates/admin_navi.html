@@ -1,4 +1,5 @@
 {% load static %}
+<!--old menu
 <nav class="navbar navbar-light bg-light fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Jayalath Enterprises</a>
@@ -27,11 +28,6 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
                                   <li><a class="dropdown-item" href="{% url 'Make_Order' %}">Make Orders</a></li>
-                    <!--             <li><a class="dropdown-item" href="#">Another action</a></li>-->
-                    <!--              <li>-->
-                    <!--                <hr class="dropdown-divider">-->
-                    <!--              </li>-->
-                    <!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
                                 </ul>
                               </li>
                               <li class="nav-item dropdown">
@@ -42,10 +38,6 @@
                                   <li><a class="dropdown-item" href="{% url 'Add_Fuels' %}">ADD Fuels</a></li>
                                   <li><a class="dropdown-item" href="{% url 'make_shifts' %}">Make Shifts</a></li>
                                   <li><a class="dropdown-item" href="{% url 'Add_Station' %}">Make Stations</a></li>
-                    <!--              <li>-->
-                    <!--                <hr class="dropdown-divider">-->
-                    <!--              </li>-->
-                    <!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
                                 </ul>
                               </li>
                               <li class="nav-item dropdown">
@@ -54,11 +46,6 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
                                   <li><a class="dropdown-item" href="{% url 'list_invoices' %}">INVOICES</a></li>
-                    <!--              <li><a class="dropdown-item" href="#">Another action</a></li>-->
-                    <!--              <li>-->
-                    <!--                <hr class="dropdown-divider">-->
-                    <!--              </li>-->
-                    <!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
                                 </ul>
                               </li>
 
@@ -69,12 +56,188 @@
                                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                                 </li>
                         </ul>
-                <!--        <form class="d-flex">-->
-                <!--          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-                <!--          <button class="btn btn-outline-success" type="submit">Search</button>-->
-                <!--        </form>-->
-
                             </div>
         </div>
     </div>
 </nav>
+
+-->
+
+<!--New Menu--->
+<!-- Sidebar  -->
+<nav id="sidebar">
+            <div class="sidebar-header">
+                <h3><img src="{% static 'img/user.png'%}" class="img-fluid"/><span>{{user.username}}</span></h3>
+            </div>
+            <ul class="list-unstyled components">
+			<li  class="active">
+                    <a href="#" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
+                </li>
+
+		      <div class="small-screen navbar-display">
+                <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
+                    <a href="#homeSubmenu0" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">notifications</i><span> 4 notification</span></a>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu0">
+                                    <li>
+                                    <a href="#">You have 5 new messages</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">You're now friend with Mike</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Wish Mary on her birthday!</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">5 warnings in Server Console</a>
+                                    </li>
+                    </ul>
+                </li>
+
+				<li  class="d-lg-none d-md-block d-xl-none d-sm-block">
+                    <a href="#"><i class="material-icons">apps</i><span>apps</span></a>
+                </li>
+
+				 <li  class="d-lg-none d-md-block d-xl-none d-sm-block">
+                    <a href="#"><i class="material-icons">person</i><span>user</span></a>
+                </li>
+
+				<li  class="d-lg-none d-md-block d-xl-none d-sm-block">
+                    <a href="#"><i class="material-icons">settings</i><span>setting</span></a>
+                </li>
+				</div>
+
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<ion-icon name="add-circle-outline" size="large"></ion-icon><span>Add</span></a>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="{% url 'Add_Fuels' %}">ADD Fuels</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'make_shifts' %}">Make Shifts</a>
+                        </li>
+                        <li>
+                            <a href="">Make Stations</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">apps</i><span>widgets</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu2">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+
+				 <li class="dropdown">
+                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">equalizer</i>
+
+
+					<span>chart</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu3">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+				  <li class="dropdown">
+                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">extension</i><span>ui element</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu4">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+
+				<li class="dropdown">
+                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">border_color</i><span>forms</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu5">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+			   <li class="dropdown">
+                    <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">grid_on</i><span>tables</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu6">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+			     <li class="dropdown">
+                    <a href="#pageSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">content_copy</i><span>Pages</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu7">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+
+               <li class="">
+                    <a href="#"><i class="material-icons">date_range</i><span>copy</span></a>
+                </li>
+
+				 <li  class="">
+                    <a href="#"><i class="material-icons">library_books</i><span>Calender</span></a>
+                </li>
+                <li  class="">
+                    <a href="{% url 'logout' %}"><ion-icon size="large" name="log-out-outline"></ion-icon><span>Logout</span></a>
+                </li>
+
+
+            </ul>
+
+
+        </nav>

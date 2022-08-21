@@ -34,13 +34,6 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    {% if user.is_authenticated %}
-        <div class="container">
-                {% include 'admin_navi.html' %}
-    {% else %}
-                {% include 'navibar.html' %}
-    {% endif %}
-        </div>
     {% block content %}
 
     {% endblock content %}
@@ -56,5 +49,6 @@
 <script>
     setTimeout(function() { $("#hideDiv").fadeOut(1000); }, 1000)
 </script>
+
 
 </html>

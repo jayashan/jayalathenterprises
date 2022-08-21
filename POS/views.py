@@ -17,6 +17,7 @@ from django.db.models import Count
 from datetime import date
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -409,7 +410,7 @@ def render_pdf_view(request):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-
+@login_required
 def settings_home(request):
     title='settings'
     orders = Order.objects.all()
